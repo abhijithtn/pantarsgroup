@@ -1,0 +1,53 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+		<p:spacer />
+		<p:spacer />
+		<p:spacer />
+
+		<h:form id="loginForm">
+
+			<p:panel closable="false" header="Enter your credentials"
+				style="display:block;margin-left:auto;margin-right:auto;width:250px">
+
+				<p:messages autoUpdate="true" />
+
+				<h:panelGrid id="loginPanel" columns="2">
+
+					<h:outputLabel for="username" value="Username" />
+
+					<p:inputText id="username"
+						value="#{loginController.userInfo.username}" required="true"
+						label="Username" />
+
+					<p:spacer />
+
+					<p:message for="username" />
+
+					<h:outputLabel for="password" value="Password" />
+
+					<p:password id="password"
+						value="#{loginController.userInfo.password}" required="true"
+						label="Password" />
+
+					<p:spacer />
+
+					<p:message for="password" />
+
+					<p:spacer />
+
+					<p:commandButton action="#{loginController.login}" value="Login" />
+
+				</h:panelGrid>
+
+			</p:panel>
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

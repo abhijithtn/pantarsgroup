@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:form>
+	<p:panelMenu style="width:250px">
+		<p:submenu label="Student Details">
+			<p:menuitem value="Personal" action="welcome" icon="ui-icon-person"/>
+			<p:menuitem value="Academic" action="welcome" icon="ui-icon-note"/>
+		</p:submenu>
+		<p:submenu label="Settings">
+			<p:menuitem value="Change password" action="welcome" icon="ui-icon-locked"/>
+			<p:menuitem value="Delete Data" action="welcome" icon="ui-icon-close"/>
+		</p:submenu>
+		<p:submenu label="Upload">
+			<p:menuitem value="Import files" action="welcome" icon="ui-icon-arrowreturnthick-1-n"/>
+		</p:submenu>
+	</p:panelMenu>
+</h:form>
+</html>

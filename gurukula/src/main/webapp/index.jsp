@@ -1,0 +1,1 @@
+<jsp:forward page="jsf/login.faces"></jsp:forward>
