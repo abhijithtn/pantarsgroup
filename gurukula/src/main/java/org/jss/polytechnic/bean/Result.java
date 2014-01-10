@@ -6,9 +6,9 @@ public class Result {
 
 	private String sem;
 
-	private int[] ex;
+	private String[] ex;
 
-	private int[] in;
+	private String[] in;
 
 	private int total;
 
@@ -16,8 +16,8 @@ public class Result {
 
 	public Result() {
 		super();
-		ex = new int[9];
-		in = new int[9];
+		ex = new String[9];
+		in = new String[9];
 	}
 
 	/**
@@ -50,33 +50,19 @@ public class Result {
 		this.sem = sem;
 	}
 
-	/**
-	 * @return the ex
-	 */
-	public int[] getEx() {
+	public String[] getEx() {
 		return ex;
 	}
 
-	/**
-	 * @param ex
-	 *            the ex to set
-	 */
-	public void setEx(int[] ex) {
+	public void setEx(String[] ex) {
 		this.ex = ex;
 	}
 
-	/**
-	 * @return the in
-	 */
-	public int[] getIn() {
+	public String[] getIn() {
 		return in;
 	}
 
-	/**
-	 * @param in
-	 *            the in to set
-	 */
-	public void setIn(int[] in) {
+	public void setIn(String[] in) {
 		this.in = in;
 	}
 

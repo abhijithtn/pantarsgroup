@@ -78,20 +78,22 @@ public class ExcelUtility {
 			br.setSem(getStringCellValue(r.getCell(i++,
 					Row.CREATE_NULL_AS_BLANK)));
 
-			int[] ex = br.getEx();
+			String[] ex = br.getEx();
 			for (int j = 0; j < ex.length;) {
-				ex[j++] = NumberUtils.toInt(getStringCellValue(r.getCell(i++,
-						Row.CREATE_NULL_AS_BLANK)), 0);
+				ex[j++] = getStringCellValue(r.getCell(i++,
+						Row.CREATE_NULL_AS_BLANK));
 			}
+
+			br.setEx(ex);
 
 			br.setExTotal(NumberUtils.toInt(
 					getStringCellValue(r.getCell(i++, Row.CREATE_NULL_AS_BLANK)),
 					0));
 
-			int[] in = br.getIn();
+			String[] in = br.getIn();
 			for (int j = 0; j < in.length;) {
-				in[j++] = NumberUtils.toInt(getStringCellValue(r.getCell(i++,
-						Row.CREATE_NULL_AS_BLANK)), 0);
+				in[j++] = getStringCellValue(r.getCell(i++,
+						Row.CREATE_NULL_AS_BLANK));
 			}
 
 			br.setInTotal(NumberUtils.toInt(

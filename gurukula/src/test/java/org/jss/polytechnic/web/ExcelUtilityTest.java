@@ -3,6 +3,8 @@ package org.jss.polytechnic.web;
 import java.io.File;
 import java.util.List;
 
+import org.jss.polytechnic.bean.BoardResult;
+import org.jss.polytechnic.bean.Result;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,8 +22,11 @@ public class ExcelUtilityTest {
 
 	@Test
 	public final void testParseResultSheet() {
-		List<? extends Object> resultList = ExcelUtility.parseResultSheet(file);
+		List<? extends Result> resultList = ExcelUtility.parseResultSheet(file);
 		Assert.assertNotNull(resultList);
-		Assert.assertTrue(resultList.size() > 100);
+		for (Result r : resultList) {
+			BoardResult br = (BoardResult) r;
+			System.out.println(br);
+		}
 	}
 }
