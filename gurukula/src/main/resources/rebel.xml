@@ -10,11 +10,6 @@
 
 	<web>
 		<link target="/">
-			<dir name="C:/Users/Abhi/Documents/Technical_Related/GIT/pantarsgroup/gurukula/target/m2e-wtp/web-resources">
-				<exclude name="/"/>
-			</dir>
-		</link>
-		<link target="/">
 			<dir name="C:/Users/Abhi/Documents/Technical_Related/GIT/pantarsgroup/gurukula/src/main/webapp">
 			</dir>
 		</link>

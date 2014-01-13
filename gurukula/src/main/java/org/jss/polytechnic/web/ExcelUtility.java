@@ -1,9 +1,8 @@
 package org.jss.polytechnic.web;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,19 +16,19 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jss.polytechnic.bean.BoardResult;
-import org.jss.polytechnic.bean.Result;
 
 public class ExcelUtility {
 
-	public static List<? extends Result> parseResultSheet(final File file) {
+	public static List<BoardResult> parseResultSheet(final InputStream is,
+			boolean isXlsx) {
 
 		Workbook wb = null;
 
 		try {
-			if (file.getName().endsWith("xlsx")) {
-				wb = new XSSFWorkbook(new FileInputStream(file));
+			if (isXlsx) {
+				wb = new XSSFWorkbook(is);
 			} else {
-				wb = new HSSFWorkbook(new FileInputStream(file));
+				wb = new HSSFWorkbook(is);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
