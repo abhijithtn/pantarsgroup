@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:form id="formResult">
+	<p:growl id="growl" showDetail="true" />
+	<h:panelGroup id="dataPanel">
+		<p:dataTable value="#{academicController.lazyModel}" id="resultTable"
+			var="item" paginator="true" rows="10" lazy="true"
+			selection="#{academicController.selectedResult}"
+			selectionMode="single"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="10,20,50"
+			emptyMessage="No Result found with given criteria">
+
+			<p:column headerText="Name" sortBy="studentName"
+				filterBy="#{item.studentName}">
+				<h:outputText value="#{item.studentName}" />
+			</p:column>
+			<p:column headerText="USN" sortBy="regNo" filterBy="#{item.regNo}">
+				<h:outputText value="#{item.regNo}" />
+			</p:column>
+			<p:column headerText="Semester" sortBy="sem" filterBy="#{item.sem}">
+				<h:outputText value="#{item.sem}" />
+			</p:column>
+			<p:column headerText="Result" sortBy="result"
+				filterBy="#{item.result}">
+				<h:outputText value="#{item.result}" />
+			</p:column>
+		</p:dataTable>
+	</h:panelGroup>
+</h:form>
+</html>

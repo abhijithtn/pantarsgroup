@@ -1,7 +1,10 @@
 package org.jss.polytechnic.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.dbutils.BasicRowProcessor;
@@ -18,6 +21,8 @@ public class ResultDao {
 	public boolean insertExamResults(List<BoardResult> resultList) {
 
 		Connection conn = null;
+
+		boolean isSuccessful = false;
 
 		try {
 
@@ -45,13 +50,15 @@ public class ResultDao {
 
 			qr.update(conn, Queries.UPDATE_FAIL_EXAM_RESULT, param);
 
-			qr.update(conn, Queries.UPDATE_PASS_EXAM_RESULT, "PASS", "FAIL");
+			qr.update(conn, Queries.UPDATE_PASS_EXAM_RESULT, "Pass", "Fail");
 
 			qr.update(conn, Queries.INSERT_EXAM_RESULTS);
 
 			qr.update(conn, Queries.UPDATE_STAGING_EXAM_STATUS);
 
 			conn.commit();
+
+			isSuccessful = true;
 
 		} catch (SQLException e) {
 			try {
@@ -65,7 +72,124 @@ public class ResultDao {
 			DbUtils.closeQuietly(conn);
 		}
 
-		return true;
+		return isSuccessful;
+	}
+
+	public void search(QueryData<Result> qd) {
+
+		Connection conn = null;
+
+		int first = qd.getFirst();
+		int pagesize = qd.getPageSize();
+		Result filter = qd.getFilter();
+		String sortOrder = qd.getSortOrder();
+		String sortField = qd.getSortField();
+
+		try {
+
+			String countQuery = "select count(*) from exam_results where 1 =1 ";
+			String resultQuery = "select * from exam_results where 1 = 1 ";
+			String whereClause = buildWhereClause(filter);
+			Object[] params = getParams(filter);
+
+			conn = DatabaseConnection.DB.getConnection();
+			QueryRunner qr = new QueryRunner();
+
+			PreparedStatement pstmt = conn.prepareStatement(countQuery
+					+ whereClause);
+
+			qr.fillStatement(pstmt, params);
+
+			ResultSet rs = pstmt.executeQuery();
+			int count = 0;
+			while (rs.next()) {
+				count = rs.getInt(1);
+			}
+
+			DbUtils.closeQuietly(null, pstmt, rs);
+
+			qd.setTotalResultCount(count);
+
+			if (count > 0) {
+				StringBuilder sortOrderBuilder = new StringBuilder();
+				if ("regNo".equals(sortField)) {
+					sortOrderBuilder.append(" ORDER BY  REG_NO ");
+				} else if ("sem".equals(sortField)) {
+					sortOrderBuilder.append(" ORDER BY   SEMESTER ");
+				} else if ("result".equals(sortField)) {
+					sortOrderBuilder.append(" ORDER BY   RESULT ");
+				} else {
+					sortOrderBuilder.append(" ORDER BY STUDENT_NAME ");
+				}
+
+				sortOrderBuilder.append(" LIMIT ").append(first).append(",")
+						.append(pagesize);
+
+				List<Result> resultList = qr
+						.query(conn, resultQuery + whereClause
+								+ sortOrderBuilder.toString(),
+								new BeanListHandler<Result>(Result.class,
+										new BasicRowProcessor(
+												new ResultBeanProcessor())),
+								params);
+
+				qd.setData(resultList);
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			DbUtils.closeQuietly(conn);
+		}
+	}
+
+	private String buildWhereClause(Result result) {
+		StringBuilder sb = new StringBuilder(100);
+		if (StringUtils.isNotBlank(result.getRegNo())) {
+			sb.append(" AND REG_NO LIKE ? ");
+		}
+
+		if (StringUtils.isNotBlank(result.getStudentName())) {
+			sb.append(" AND STUDENT_NAME like ? ");
+		}
+
+		if (StringUtils.isNotBlank(result.getSem())) {
+			sb.append(" AND SEMESTER = ? ");
+		}
+
+		if (StringUtils.isNotBlank(result.getResult())) {
+			sb.append(" AND RESULT = ? ");
+		}
+
+		return sb.toString();
+	}
+
+	private Object[] getParams(Result result) throws SQLException {
+
+		List<String> params = new ArrayList<String>();
+
+		if (StringUtils.isNotBlank(result.getRegNo())) {
+			params.add("%" + result.getRegNo() + "%");
+		}
+
+		if (StringUtils.isNotBlank(result.getStudentName())) {
+			params.add("%" + result.getStudentName() + "%");
+		}
+
+		if (StringUtils.isNotBlank(result.getSem())) {
+			params.add(result.getSem());
+		}
+
+		if (StringUtils.isNotBlank(result.getResult())) {
+			params.add(result.getResult());
+		}
+
+		if (params.size() == 0) {
+			return null;
+		} else {
+			return params.toArray();
+		}
+
 	}
 
 	/**
@@ -73,7 +197,7 @@ public class ResultDao {
 	 */
 	private Object[] getParamForUpdateFailExamResult() {
 		Object[] param = new Object[19];
-		param[0] = "FAIL";
+		param[0] = "Fail";
 		for (int i = 1; i < param.length; i++) {
 			if (i < 11) {
 				param[i] = Constants.EX_MIN;

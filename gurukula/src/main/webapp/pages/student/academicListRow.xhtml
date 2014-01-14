@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<p:column sortBy="#{item.studentName}" filterBy="#{item.studentName}">
+	<f:facet name="header">
+		<h:outputText value="Name" />
+	</f:facet>
+	<h:outputText value="#{item.studentName}" />
+</p:column>
+<p:column sortBy="#{item.regNo}" filterBy="#{item.regNo}">
+	<f:facet name="header">
+		<h:outputText value="USN" />
+	</f:facet>
+	<h:outputText value="#{item.regNo}" />
+</p:column>
+<p:column sortBy="#{item.sem}" filterBy="#{item.sem}">
+	<f:facet name="header">
+		<h:outputText value="Semester" />
+	</f:facet>
+	<h:outputText value="#{item.sem}" />
+</p:column>
+<p:column sortBy="#{item.result}" filterBy="#{item.result}">
+	<f:facet name="header">
+		<h:outputText value="Result" />
+	</f:facet>
+	<h:outputText value="#{item.result}" />
+</p:column>
+</html>

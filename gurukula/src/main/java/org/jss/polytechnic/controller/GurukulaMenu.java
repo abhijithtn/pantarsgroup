@@ -27,7 +27,7 @@ public class GurukulaMenu {
 	public static final String PERSONAL_ACCESS_URL = "/pages/student/personal.xhtml";
 	public static final String ACADEMIC_ACCESS_URL = "/pages/student/academic.xhtml";
 	public static final String upload_INDEX = "1";
-	public static final String UPLOAD_RESULT_URL = "/pages/student/uploadResult.xhtml";
+	public static final String UPLOAD_RESULT_URL = "/pages/upload/uploadResult.xhtml";
 	public static final String settings_INDEX = "2";
 	public static final String CHANGE_PASSWORD_URL = "/pages/student/changePassword.xhtml";
 	public static final String LOGOUT_URL = "/pages/student/logout.xhtml";

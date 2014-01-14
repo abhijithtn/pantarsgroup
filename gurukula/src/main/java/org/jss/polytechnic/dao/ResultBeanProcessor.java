@@ -22,6 +22,8 @@ public class ResultBeanProcessor extends BeanProcessor {
 
 		while (rs.next()) {
 			Result result = new Result();
+			result.setStudentName(rs.getString("STUDENT_NAME"));
+			result.setResult(rs.getString("RESULT"));
 			result.setRegNo(rs.getString("REG_NO"));
 			result.setSem(rs.getString("SEMESTER"));
 			String[] ex = result.getEx();
@@ -69,6 +71,8 @@ public class ResultBeanProcessor extends BeanProcessor {
 
 		while (rs.next()) {
 			Result result = new Result();
+			result.setStudentName(rs.getString("STUDENT_NAME"));
+			result.setResult(rs.getString("RESULT"));
 			result.setRegNo(rs.getString("REG_NO"));
 			result.setSem(rs.getString("SEMESTER"));
 			String[] ex = result.getEx();

@@ -21,6 +21,11 @@
 		<param-value>.xhtml</param-value>
 	</context-param>
 
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>cupertino</param-value>
+	</context-param>
+
 	<filter>
 		<filter-name>Primefaces FileUpload Filter</filter-name>
 		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>

@@ -2,9 +2,12 @@ package org.jss.polytechnic.bean;
 
 public class BoardResult extends Result {
 
-	private int slNo;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -84745799971631158L;
 
-	private String studentName;
+	private int slNo;
 
 	private int exTotal;
 
@@ -30,21 +33,6 @@ public class BoardResult extends Result {
 	 */
 	public void setSlNo(int slNo) {
 		this.slNo = slNo;
-	}
-
-	/**
-	 * @return the studentName
-	 */
-	public String getStudentName() {
-		return studentName;
-	}
-
-	/**
-	 * @param studentName
-	 *            the studentName to set
-	 */
-	public void setStudentName(String studentName) {
-		this.studentName = studentName;
 	}
 
 	/**
@@ -99,9 +87,9 @@ public class BoardResult extends Result {
 	 */
 	@Override
 	public String toString() {
-		return "BoardResult [slNo=" + slNo + ", studentName=" + studentName
-				+ ", exTotal=" + exTotal + ", inTotal=" + inTotal
-				+ ", toString()=" + super.toString() + "]";
+		return "BoardResult [slNo=" + slNo + ", exTotal=" + exTotal
+				+ ", inTotal=" + inTotal + ", toString()=" + super.toString()
+				+ "]";
 	}
 
 }

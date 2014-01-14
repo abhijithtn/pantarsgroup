@@ -1,8 +1,19 @@
 package org.jss.polytechnic.bean;
 
-public class Result {
+import java.io.Serializable;
+import java.util.Map;
+import java.util.Map.Entry;
+
+public class Result implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8125204286168763912L;
 
 	private String regNo;
+
+	private String studentName;
 
 	private String sem;
 
@@ -18,6 +29,21 @@ public class Result {
 		super();
 		ex = new String[9];
 		in = new String[9];
+	}
+
+	/**
+	 * @return the studentName
+	 */
+	public String getStudentName() {
+		return studentName;
+	}
+
+	/**
+	 * @param studentName
+	 *            the studentName to set
+	 */
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
 	}
 
 	/**
@@ -94,6 +120,32 @@ public class Result {
 	 */
 	public void setResult(String result) {
 		this.result = result;
+	}
+
+	public Result mask(Map<String, String> filter) {
+
+		for (Entry<String, String> entry : filter.entrySet()) {
+			mask(entry.getKey(), entry.getValue());
+		}
+
+		return this;
+	}
+
+	public Result mask(String pattern, String value) {
+		if (pattern == null || value == null)
+			return this;
+
+		if ("regNo".equals(pattern)) {
+			setRegNo(value);
+		} else if ("sem".equals(pattern)) {
+			setSem(value);
+		} else if ("result".equals(pattern)) {
+			setResult(value);
+		} else if ("studentName".equals(pattern)) {
+			setStudentName(value);
+		}
+
+		return this;
 	}
 
 	/*

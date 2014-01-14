@@ -11,6 +11,7 @@
 	</properties>
 
 	<build>
+		<finalName>gurukula</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -77,6 +78,13 @@
 			<artifactId>primefaces</artifactId>
 			<version>4.0</version>
 		</dependency>
+		<!-- Themes PrimeFaces -->
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>cupertino</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.sun.facelets</groupId>
 			<artifactId>jsf-facelets</artifactId>
@@ -101,6 +109,7 @@
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>6.0</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
