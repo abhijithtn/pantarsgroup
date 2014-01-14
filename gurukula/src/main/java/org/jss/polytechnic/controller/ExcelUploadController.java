@@ -12,10 +12,21 @@ import org.jss.polytechnic.bean.BoardResult;
 import org.jss.polytechnic.dao.ResultDao;
 import org.jss.polytechnic.web.ExcelUtility;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "excelUploadController")
 @RequestScoped
 public class ExcelUploadController {
+
+	private UploadedFile file;
+
+	public UploadedFile getFile() {
+		return file;
+	}
+
+	public void setFile(UploadedFile file) {
+		this.file = file;
+	}
 
 	public void handleFileUpload(FileUploadEvent event) {
 		System.out.println("Inside upload button ");
@@ -39,7 +50,29 @@ public class ExcelUploadController {
 					.getFileName() + " is uploaded.");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
+	}
 
+	public void upload() {
+		System.out.println("Inside upload button ");
+		List<BoardResult> resultList = null;
+		try {
+			resultList = ExcelUtility.parseResultSheet(file.getInputstream(),
+					file.getFileName().endsWith("xlsx"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		ResultDao dao = new ResultDao();
+		boolean isSuccessful = dao.insertExamResults(resultList);
+		if (isSuccessful) {
+			FacesMessage msg = new FacesMessage("Successful",
+					file.getFileName() + " is uploaded.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		} else {
+			FacesMessage msg = new FacesMessage("Unsuccessful",
+					file.getFileName() + " is not uploaded.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 	}
 
 }

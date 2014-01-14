@@ -38,11 +38,21 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.faces</url-pattern>
+		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.xhtml</welcome-file>
 	</welcome-file-list>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.xhtml</location>
+	</error-page>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/500.xhtml</location>
+	</error-page>
+
 	<resource-ref>
 		<res-ref-name>jdbc/MyDB</res-ref-name>
 		<res-type>javax.sql.DataSource</res-type>

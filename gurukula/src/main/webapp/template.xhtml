@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="title">Welcome to Gurukula</ui:insert></title>
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/css/style.css" />
+</h:head>
+<h:body>
+	<p:layout fullPage="true" id="layout">
+
+		<p:layoutUnit header="Menu" position="west" resizable="true"
+			size="216" collapsible="true">
+			<ui:include src="/pages/Menu.xhtml" />
+		</p:layoutUnit>
+		<p:layoutUnit position="center">
+			<ui:insert name="body">Welcome to Gurukula.</ui:insert>
+		</p:layoutUnit>
+		<p:layoutUnit position="south" size="100" header="Disclaimer"
+			resizable="true" closable="true" collapsible="true">
+			<br />
+			<h:outputText value="This is a sample website " />
+			<a href="#">Powered by JSS Polytechnic</a> version 0.1 - 2014-01-11 23:55:54<br />
+
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>
+
