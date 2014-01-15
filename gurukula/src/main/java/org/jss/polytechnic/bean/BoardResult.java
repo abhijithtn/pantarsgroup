@@ -13,11 +13,8 @@ public class BoardResult extends Result {
 
 	private int inTotal;
 
-	private String[] qp;
-
 	public BoardResult() {
 		super();
-		qp = new String[9];
 	}
 
 	/**
@@ -63,21 +60,6 @@ public class BoardResult extends Result {
 	 */
 	public void setInTotal(int inTotal) {
 		this.inTotal = inTotal;
-	}
-
-	/**
-	 * @return the qp
-	 */
-	public String[] getQp() {
-		return qp;
-	}
-
-	/**
-	 * @param qp
-	 *            the qp to set
-	 */
-	public void setQp(String[] qp) {
-		this.qp = qp;
 	}
 
 	/*

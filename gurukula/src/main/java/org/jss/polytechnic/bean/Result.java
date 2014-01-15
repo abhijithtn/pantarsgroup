@@ -21,6 +21,8 @@ public class Result implements Serializable {
 
 	private String[] in;
 
+	private String[] qp;
+
 	private int total;
 
 	private String result;
@@ -29,6 +31,7 @@ public class Result implements Serializable {
 		super();
 		ex = new String[9];
 		in = new String[9];
+		qp = new String[9];
 	}
 
 	/**
@@ -90,6 +93,21 @@ public class Result implements Serializable {
 
 	public void setIn(String[] in) {
 		this.in = in;
+	}
+
+	/**
+	 * @return the qp
+	 */
+	public String[] getQp() {
+		return qp;
+	}
+
+	/**
+	 * @param qp
+	 *            the qp to set
+	 */
+	public void setQp(String[] qp) {
+		this.qp = qp;
 	}
 
 	/**

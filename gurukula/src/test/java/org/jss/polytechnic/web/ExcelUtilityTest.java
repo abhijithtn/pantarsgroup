@@ -9,12 +9,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.dbutils.BasicRowProcessor;
+import org.apache.commons.dbutils.BeanProcessor;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.jss.polytechnic.bean.BoardResult;
 import org.jss.polytechnic.bean.Result;
+import org.jss.polytechnic.dao.MapperUtil;
 import org.jss.polytechnic.dao.Queries;
-import org.jss.polytechnic.dao.ResultBeanProcessor;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,8 +56,8 @@ public class ExcelUtilityTest {
 
 		List<Result> updatableResult = qr.query(conn,
 				Queries.GET_RESULTS_TO_BE_UPDATED, new BeanListHandler<Result>(
-						Result.class, new BasicRowProcessor(
-								new ResultBeanProcessor())));
+						Result.class, new BasicRowProcessor(new BeanProcessor(
+								MapperUtil.getResultBeanMap()))));
 
 		System.out.println(updatableResult.size());
 
