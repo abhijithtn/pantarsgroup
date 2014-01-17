@@ -18,27 +18,30 @@ public interface Queries {
 			+ ",IA4=COALESCE(?,IA4),IA5=COALESCE(?,IA5),IA6=COALESCE(?,IA6),IA7=COALESCE(?,IA7),IA8=COALESCE(?,IA8),IA9=COALESCE(?,IA9)"
 			+ " WHERE REG_NO = ? AND SEMESTER = ?";
 
-	String UPDATE_EXAM_TOTAL = "update exam_results set ex_total = ex1+ex2+ex3+ex4+ex5+ex6+ex7+ex8+ex9,ia_total = ia1+ia2+ia3+ia4+ia5+ia6+ia7+ia8+ia9,total = ex_total+ia_total";
+	String UPDATE_EXAM_TOTAL = "update exam_results "
+			+ "set ex_total = IF(ex1 = 'AB',0,ex1) + IF(ex2 = 'AB',0,ex2) + IF(ex3 = 'AB',0,ex3) + IF(ex4 = 'AB',0,ex4) + IF(ex5 = 'AB',0,ex5) + IF(ex6 = 'AB',0,ex6) + IF(ex7 = 'AB',0,ex7) + IF(ex8 = 'AB',0,ex8) + IF(ex9 = 'AB',0,ex9),"
+			+ "ia_total = IF(ia1 = 'AB',0,ia1) + IF(ia2 = 'AB',0,ia2) + IF(ia3 = 'AB',0,ia3) + IF(ia4 = 'AB',0,ia4) + IF(ia5 = 'AB',0,ia5) + IF(ia6 = 'AB',0,ia6) + IF(ia7 = 'AB',0,ia7) + IF(ia8 = 'AB',0,ia8) + IF(ia9 = 'AB',0,ia9),"
+			+ "total = ex_total+ia_total";
 
 	String UPDATE_FAIL_EXAM_RESULT = "UPDATE EXAM_RESULTS SET RESULT = ? "
 			+ "WHERE (EX1 < ? OR NULLIF(EX1,'') IS NULL) "
-			+ "OR (EX2 < ? OR NULLIF(EX2,'') IS NULL) "
-			+ "OR (EX3 < ? OR NULLIF(EX3,'') IS NULL) "
-			+ "OR (EX4 < ? OR NULLIF(EX4,'') IS NULL) "
-			+ "OR (EX5 < ? OR NULLIF(EX5,'') IS NULL) "
-			+ "OR (EX6 < ? OR NULLIF(EX6,'') IS NULL) "
-			+ "OR (EX7 < ? OR NULLIF(EX7,'') IS NULL) "
-			+ "OR (EX8 < ? OR NULLIF(EX8,'') IS NULL) "
-			+ "OR (EX9 < ? OR NULLIF(EX9,'') IS NULL) "
-			+ "OR (IA1 < ? OR NULLIF(IA1,'') IS NULL) "
-			+ "OR (IA2 < ? OR NULLIF(IA2,'') IS NULL) "
-			+ "OR (IA3 < ? OR NULLIF(IA3,'') IS NULL) "
-			+ "OR (IA4 < ? OR NULLIF(IA4,'') IS NULL) "
-			+ "OR (IA5 < ? OR NULLIF(IA5,'') IS NULL) "
-			+ "OR (IA6 < ? OR NULLIF(IA6,'') IS NULL) "
-			+ "OR (IA7 < ? OR NULLIF(IA7,'') IS NULL) "
-			+ "OR (IA8 < ? OR NULLIF(IA8,'') IS NULL) "
-			+ "OR (IA9 < ? OR NULLIF(IA9,'') IS NULL) ";
+			+ "AND (EX2 < ? OR NULLIF(EX2,'') IS NULL) "
+			+ "AND (EX3 < ? OR NULLIF(EX3,'') IS NULL) "
+			+ "AND (EX4 < ? OR NULLIF(EX4,'') IS NULL) "
+			+ "AND (EX5 < ? OR NULLIF(EX5,'') IS NULL) "
+			+ "AND (EX6 < ? OR NULLIF(EX6,'') IS NULL) "
+			+ "AND (EX7 < ? OR NULLIF(EX7,'') IS NULL) "
+			+ "AND (EX8 < ? OR NULLIF(EX8,'') IS NULL) "
+			+ "AND (EX9 < ? OR NULLIF(EX9,'') IS NULL) "
+			+ "AND (IA1 < ? OR NULLIF(IA1,'') IS NULL) "
+			+ "AND (IA2 < ? OR NULLIF(IA2,'') IS NULL) "
+			+ "AND (IA3 < ? OR NULLIF(IA3,'') IS NULL) "
+			+ "AND (IA4 < ? OR NULLIF(IA4,'') IS NULL) "
+			+ "AND (IA5 < ? OR NULLIF(IA5,'') IS NULL) "
+			+ "AND (IA6 < ? OR NULLIF(IA6,'') IS NULL) "
+			+ "AND (IA7 < ? OR NULLIF(IA7,'') IS NULL) "
+			+ "AND (IA8 < ? OR NULLIF(IA8,'') IS NULL) "
+			+ "AND (IA9 < ? OR NULLIF(IA9,'') IS NULL) ";
 
 	String UPDATE_PASS_EXAM_RESULT = "UPDATE EXAM_RESULTS SET RESULT = ? WHERE RESULT != ?";
 

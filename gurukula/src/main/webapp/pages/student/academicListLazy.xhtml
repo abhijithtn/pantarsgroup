@@ -31,4 +31,27 @@
 		</p:dataTable>
 	</h:panelGroup>
 </h:form>
+<h:form id="form2">
+	<p:panelGrid columns="3" id="panel" cellpadding="5"
+		styleClass="ui-widget-content-borderless"
+		columnClasses="mp-column-center">
+		<f:facet name="header" align="left">
+			<h:outputText value="Academic details " />
+			<p:commandButton value="Save" icon="ui-icon-check"
+				actionListener="#{addressController.createOrUpdateListener}"
+				update=":formAddress:addressTable,:form2:panel,:form2:childrenTab,:formAddress:growl" />
+			<p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel"
+				process="@this" actionListener="#{addressController.clearListener}"
+				update=":form2:panel,:form2:childrenTab" style="margin:5px;" />
+			<p:commandButton value="Delete" icon="ui-icon-trash">
+				<p:confirm header="Deletion process" severity="alert"
+					icon="ui-icon-alert" message="Can you confirm your deletion?" />
+			</p:commandButton>
+		</f:facet>
+		<ui:include src="/petshop/pet/AddressEdit.xhtml">
+			<ui:param name="affectFormId" value=":form2" />
+			<ui:param name="idValue" value="1" />
+		</ui:include>
+	</p:panelGrid>
+</h:form>
 </html>

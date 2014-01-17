@@ -9,7 +9,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import org.apache.commons.lang3.StringUtils;
 import org.jss.polytechnic.bean.Result;
 import org.jss.polytechnic.dao.QueryData;
 import org.jss.polytechnic.dao.ResultDao;

@@ -61,7 +61,29 @@ public class ExcelUtilityTest {
 
 		System.out.println(updatableResult.size());
 
+		Object[] param = getParamForUpdateFailExamResult();
+
+		int count = qr.update(conn, Queries.UPDATE_FAIL_EXAM_RESULT, param);
+
+		System.out.println(count);
+
 		conn.rollback();
+	}
+
+	/**
+	 * @return
+	 */
+	private Object[] getParamForUpdateFailExamResult() {
+		Object[] param = new Object[19];
+		param[0] = "Fail";
+		for (int i = 1; i < param.length; i++) {
+			if (i < 11) {
+				param[i] = Constants.EX_MIN;
+			} else {
+				param[i] = Constants.IA_MIN;
+			}
+		}
+		return param;
 	}
 
 	/**

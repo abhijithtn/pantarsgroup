@@ -113,13 +113,17 @@ public class ResultDao {
 			if (count > 0) {
 				StringBuilder sortOrderBuilder = new StringBuilder();
 				if ("regNo".equals(sortField)) {
-					sortOrderBuilder.append(" ORDER BY  REG_NO ");
+					sortOrderBuilder.append(" ORDER BY  REG_NO ").append(
+							sortOrder);
 				} else if ("sem".equals(sortField)) {
-					sortOrderBuilder.append(" ORDER BY   SEMESTER ");
+					sortOrderBuilder.append(" ORDER BY   SEMESTER ").append(
+							sortOrder);
 				} else if ("result".equals(sortField)) {
-					sortOrderBuilder.append(" ORDER BY   RESULT ");
+					sortOrderBuilder.append(" ORDER BY   RESULT ").append(
+							sortOrder);
 				} else {
-					sortOrderBuilder.append(" ORDER BY STUDENT_NAME ");
+					sortOrderBuilder.append(" ORDER BY STUDENT_NAME ").append(
+							sortOrder);
 				}
 
 				sortOrderBuilder.append(" LIMIT ").append(first).append(",")
