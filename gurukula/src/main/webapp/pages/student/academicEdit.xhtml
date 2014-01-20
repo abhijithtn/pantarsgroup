@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+<!-- those two empty p : outputLabel are totally unbelievable but there seems to be needed 
+     when the artifact is used from a ui:include otherwise there is gap of one column and the
+	 label, field, validation are not aligned...&nbsp;
+-->
+<p:outputLabel>
+</p:outputLabel>
+<p:outputLabel>
+</p:outputLabel>
+
+<p:dataTable var="ext" value="#{academicController.selectedResult.ex}"
+	id="detail_result" rowIndexVar="index"
+	rendered="#{!empty academicController.selectedResult.regNo}">
+	<p:column headerText="Subject">
+		<h:outputText value="#{academicController.selectedResult.qp[index]}"
+			rendered="#{!empty academicController.selectedResult.qp[index]}"
+			converter="subjectConverter" />
+		<h:outputText value=" - "
+			rendered="#{empty academicController.selectedResult.qp[index]}" />
+	</p:column>
+	<p:column headerText="External">
+		<h:outputText value="#{ext}" rendered="#{!empty ext}" />
+		<h:outputText value=" - " rendered="#{empty ext}" />
+	</p:column>
+	<p:column headerText="Internal">
+		<h:outputText value="#{academicController.selectedResult.in[index]}"
+			rendered="#{!empty academicController.selectedResult.in[index]}" />
+		<h:outputText value=" - "
+			rendered="#{empty academicController.selectedResult.in[index]}" />
+	</p:column>
+</p:dataTable>
+
+<!-- those two empty p : outputLabel are totally inbelievable but there seems to be needed 
+     when the artifact is used from a ui:include otherwise there is gap of one column and the
+	 label, field, validation are not aligned...&nbsp;
+-->
+<p:outputLabel>
+</p:outputLabel>
+<p:outputLabel>
+</p:outputLabel>
+</html>
+
