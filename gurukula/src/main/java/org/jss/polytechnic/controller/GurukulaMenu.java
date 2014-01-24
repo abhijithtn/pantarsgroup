@@ -28,6 +28,7 @@ public class GurukulaMenu {
 	public static final String ACADEMIC_ACCESS_URL = "/pages/student/academic.xhtml";
 	public static final String upload_INDEX = "1";
 	public static final String UPLOAD_RESULT_URL = "/pages/upload/uploadResult.xhtml";
+	public static final String UPLOAD_PERSONAL_DETAILS_URL = "/pages/upload/uploadPersonalDetails.xhtml";
 	public static final String settings_INDEX = "2";
 	public static final String CHANGE_PASSWORD_URL = "/pages/student/changePassword.xhtml";
 	public static final String LOGOUT_URL = "/pages/student/logout.xhtml";
@@ -76,7 +77,10 @@ public class GurukulaMenu {
 		map.put(ACADEMIC_ACCESS_URL, new MenuTuple(ACADEMIC_ACCESS_URL,
 				student_INDEX, "ACADEMIC", "Academic"));
 		map.put(UPLOAD_RESULT_URL, new MenuTuple(UPLOAD_RESULT_URL,
-				upload_INDEX, "UPLOAD", "Upload Results"));
+				upload_INDEX, "UPLOAD_RESULT", "Upload Results"));
+		map.put(UPLOAD_PERSONAL_DETAILS_URL, new MenuTuple(
+				UPLOAD_PERSONAL_DETAILS_URL, upload_INDEX, "UPLOAD_PD",
+				"Upload Student Details"));
 		map.put(CHANGE_PASSWORD_URL, new MenuTuple(CHANGE_PASSWORD_URL,
 				settings_INDEX, "CHANGEPASSWORD", "Change Password"));
 		map.put(LOGOUT_URL, new MenuTuple(LOGOUT_URL, settings_INDEX, "LOGOUT",
@@ -109,6 +113,11 @@ public class GurukulaMenu {
 
 		submenuproduct.addElement(getItem("Upload Results", UPLOAD_RESULT_URL));
 		tabproduct.getChildren().add(getPanel(getTuple(UPLOAD_RESULT_URL)));
+
+		submenuproduct.addElement(getItem("Upload Student Details",
+				UPLOAD_PERSONAL_DETAILS_URL));
+		tabproduct.getChildren().add(
+				getPanel(getTuple(UPLOAD_PERSONAL_DETAILS_URL)));
 
 		model.addElement(submenuproduct);
 		accordion.getChildren().add(tabproduct);

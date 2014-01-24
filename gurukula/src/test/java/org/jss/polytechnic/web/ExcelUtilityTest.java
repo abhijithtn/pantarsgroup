@@ -2,10 +2,8 @@ package org.jss.polytechnic.web;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.dbutils.BasicRowProcessor;
@@ -14,6 +12,7 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.jss.polytechnic.bean.BoardResult;
 import org.jss.polytechnic.bean.Result;
+import org.jss.polytechnic.bean.Student;
 import org.jss.polytechnic.dao.MapperUtil;
 import org.jss.polytechnic.dao.Queries;
 import org.junit.Assert;
@@ -33,15 +32,21 @@ public class ExcelUtilityTest {
 	}
 
 	@Test
-	public final void testParseResultSheet() throws FileNotFoundException {
+	public final void testParsePersonalSheet() throws Exception {
+		List<Student> studentList = ExcelUtility.parsePersonalSheet(
+				new FileInputStream("src/test/resources/mclist.xls"), false);
+		Assert.assertNotNull(studentList);
+	}
+
+	@Test
+	public final void testParseResultSheet() throws Exception {
 		List<? extends Result> resultList = ExcelUtility.parseResultSheet(
 				new FileInputStream(file), true);
 		Assert.assertNotNull(resultList);
 	}
 
 	@Test
-	public final void testInsertion() throws SQLException,
-			FileNotFoundException {
+	public final void testInsertion() throws Exception {
 		List<BoardResult> resultList = ExcelUtility.parseResultSheet(
 				new FileInputStream(file), true);
 		Connection conn = DriverManager.getConnection(
