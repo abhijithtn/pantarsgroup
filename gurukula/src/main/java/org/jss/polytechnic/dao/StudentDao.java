@@ -12,9 +12,7 @@ import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.lang3.StringUtils;
-import org.jss.polytechnic.bean.Result;
 import org.jss.polytechnic.bean.Student;
-import org.jss.polytechnic.web.Constants;
 
 public class StudentDao {
 
@@ -37,7 +35,7 @@ public class StudentDao {
 			qr.batch(conn, Queries.INSERT_STUDENT_INFO, params);
 
 			isSuccessful = true;
-			
+
 			conn.commit();
 
 		} catch (SQLException e) {
@@ -55,20 +53,20 @@ public class StudentDao {
 		return isSuccessful;
 	}
 
-	public void search(QueryData<Result> qd) {
+	public void search(QueryData<Student> qd) {
 
 		Connection conn = null;
 
 		int first = qd.getFirst();
 		int pagesize = qd.getPageSize();
-		Result filter = qd.getFilter();
+		Student filter = qd.getFilter();
 		String sortOrder = qd.getSortOrder();
 		String sortField = qd.getSortField();
 
 		try {
 
-			String countQuery = "select count(*) from exam_results where 1 =1 ";
-			String resultQuery = "select * from exam_results where 1 = 1 ";
+			String countQuery = "select count(*) from student_info where 1 =1 ";
+			String resultQuery = "select * from student_info where 1 = 1 ";
 			String whereClause = buildWhereClause(filter);
 			Object[] params = getParams(filter);
 
@@ -92,30 +90,28 @@ public class StudentDao {
 
 			if (count > 0) {
 				StringBuilder sortOrderBuilder = new StringBuilder();
-				if ("regNo".equals(sortField)) {
-					sortOrderBuilder.append(" ORDER BY  REG_NO ").append(
+				if ("reg_no".equals(sortField)) {
+					sortOrderBuilder.append(" ORDER BY REG_NO ").append(
 							sortOrder);
-				} else if ("sem".equals(sortField)) {
-					sortOrderBuilder.append(" ORDER BY   SEMESTER ").append(
+				} else if ("category".equals(sortField)) {
+					sortOrderBuilder.append(" ORDER BY CATEGORY ").append(
 							sortOrder);
-				} else if ("result".equals(sortField)) {
-					sortOrderBuilder.append(" ORDER BY   RESULT ").append(
+				} else if ("gender".equals(sortField)) {
+					sortOrderBuilder.append(" ORDER BY GENDER ").append(
 							sortOrder);
 				} else {
-					sortOrderBuilder.append(" ORDER BY STUDENT_NAME ").append(
-							sortOrder);
+					sortOrderBuilder.append(" ORDER BY NAME ")
+							.append(sortOrder);
 				}
 
 				sortOrderBuilder.append(" LIMIT ").append(first).append(",")
 						.append(pagesize);
 
-				List<Result> resultList = qr
-						.query(conn, resultQuery + whereClause
-								+ sortOrderBuilder.toString(),
-								new BeanListHandler<Result>(Result.class,
-										new BasicRowProcessor(
-												new ResultBeanProcessor())),
-								params);
+				List<Student> resultList = qr.query(conn, resultQuery
+						+ whereClause + sortOrderBuilder.toString(),
+						new BeanListHandler<Student>(Student.class,
+								new BasicRowProcessor(
+										new StudentBeanProcessor())), params);
 
 				qd.setData(resultList);
 			}
@@ -127,45 +123,45 @@ public class StudentDao {
 		}
 	}
 
-	private String buildWhereClause(Result result) {
+	private String buildWhereClause(Student student) {
 		StringBuilder sb = new StringBuilder(100);
-		if (StringUtils.isNotBlank(result.getRegNo())) {
+		if (StringUtils.isNotBlank(student.getReg_no())) {
 			sb.append(" AND REG_NO LIKE ? ");
 		}
 
-		if (StringUtils.isNotBlank(result.getStudentName())) {
-			sb.append(" AND STUDENT_NAME like ? ");
+		if (StringUtils.isNotBlank(student.getName())) {
+			sb.append(" AND NAME like ? ");
 		}
 
-		if (StringUtils.isNotBlank(result.getSem())) {
-			sb.append(" AND SEMESTER = ? ");
+		if (StringUtils.isNotBlank(student.getCategory())) {
+			sb.append(" AND CATEGORY = ? ");
 		}
 
-		if (StringUtils.isNotBlank(result.getResult())) {
-			sb.append(" AND RESULT = ? ");
+		if (StringUtils.isNotBlank(student.getGender())) {
+			sb.append(" AND GENDER = ? ");
 		}
 
 		return sb.toString();
 	}
 
-	private Object[] getParams(Result result) throws SQLException {
+	private Object[] getParams(Student student) throws SQLException {
 
 		List<String> params = new ArrayList<String>();
 
-		if (StringUtils.isNotBlank(result.getRegNo())) {
-			params.add("%" + result.getRegNo() + "%");
+		if (StringUtils.isNotBlank(student.getReg_no())) {
+			params.add("%" + student.getReg_no() + "%");
 		}
 
-		if (StringUtils.isNotBlank(result.getStudentName())) {
-			params.add("%" + result.getStudentName() + "%");
+		if (StringUtils.isNotBlank(student.getName())) {
+			params.add("%" + student.getName() + "%");
 		}
 
-		if (StringUtils.isNotBlank(result.getSem())) {
-			params.add(result.getSem());
+		if (StringUtils.isNotBlank(student.getCategory())) {
+			params.add(student.getCategory());
 		}
 
-		if (StringUtils.isNotBlank(result.getResult())) {
-			params.add(result.getResult());
+		if (StringUtils.isNotBlank(student.getGender())) {
+			params.add(student.getGender());
 		}
 
 		if (params.size() == 0) {
@@ -174,61 +170,6 @@ public class StudentDao {
 			return params.toArray();
 		}
 
-	}
-
-	/**
-	 * @return
-	 */
-	private Object[] getParamForUpdateFailExamResult() {
-		Object[] param = new Object[19];
-		param[0] = "Fail";
-		for (int i = 1; i < param.length; i++) {
-			if (i < 11) {
-				param[i] = Constants.EX_MIN;
-			} else {
-				param[i] = Constants.IA_MIN;
-			}
-		}
-		return param;
-	}
-
-	/**
-	 * @param updatableResult
-	 * @return
-	 */
-	private Object[][] getParamForUpdateExamResults(List<Result> updatableResult) {
-		Object[][] params;
-		params = new Object[updatableResult.size()][20];
-
-		for (int i = 0; i < updatableResult.size(); i++) {
-			Result result = updatableResult.get(i);
-			int j = 0;
-			String[] ex = result.getEx();
-			params[i][j++] = StringUtils.trimToNull(ex[0]);
-			params[i][j++] = StringUtils.trimToNull(ex[1]);
-			params[i][j++] = StringUtils.trimToNull(ex[2]);
-			params[i][j++] = StringUtils.trimToNull(ex[3]);
-			params[i][j++] = StringUtils.trimToNull(ex[4]);
-			params[i][j++] = StringUtils.trimToNull(ex[5]);
-			params[i][j++] = StringUtils.trimToNull(ex[6]);
-			params[i][j++] = StringUtils.trimToNull(ex[7]);
-			params[i][j++] = StringUtils.trimToNull(ex[8]);
-
-			String[] ia = result.getIn();
-			params[i][j++] = StringUtils.trimToNull(ia[0]);
-			params[i][j++] = StringUtils.trimToNull(ia[1]);
-			params[i][j++] = StringUtils.trimToNull(ia[2]);
-			params[i][j++] = StringUtils.trimToNull(ia[3]);
-			params[i][j++] = StringUtils.trimToNull(ia[4]);
-			params[i][j++] = StringUtils.trimToNull(ia[5]);
-			params[i][j++] = StringUtils.trimToNull(ia[6]);
-			params[i][j++] = StringUtils.trimToNull(ia[7]);
-			params[i][j++] = StringUtils.trimToNull(ia[8]);
-
-			params[i][j++] = result.getRegNo();
-			params[i][j++] = result.getSem();
-		}
-		return params;
 	}
 
 	/**
@@ -246,7 +187,6 @@ public class StudentDao {
 			params[i][j++] = student.getMother();
 			params[i][j++] = student.getGender();
 			params[i][j++] = student.getCategory();
-
 		}
 
 		return params;

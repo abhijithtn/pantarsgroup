@@ -134,7 +134,7 @@ public class AcademicController implements Serializable {
 	public Result fetchRow(final String rowKey) {
 		Result filter = new Result();
 		result.setRegNo(rowKey);
-		QueryData<Result> data = new QueryData<Result>(0, 1, "studentName",
+		QueryData<Result> data = new QueryData<Result>(0, 1, "name",
 				"DESC", filter);
 		dao.search(data);
 		if (data.getData().size() > 0) {

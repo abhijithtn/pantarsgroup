@@ -10,7 +10,7 @@
 			var="item" paginator="true" rows="10" lazy="true"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="10,20,50"
-			emptyMessage="No Result found with given criteria">
+			emptyMessage="No Result found with given criteria" rowKey="#{item}">
 			<p:column headerText="Name" sortBy="studentName"
 				filterBy="#{item.studentName}">
 				<h:outputText value="#{item.studentName}" />

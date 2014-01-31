@@ -14,6 +14,8 @@ public class Student {
 
 	private String category;
 
+	private String branch;
+
 	public Student() {
 		super();
 	}
@@ -117,6 +119,21 @@ public class Student {
 	 */
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	/**
+	 * @return the branch
+	 */
+	public String getBranch() {
+		return branch;
+	}
+
+	/**
+	 * @param branch
+	 *            the branch to set
+	 */
+	public void setBranch(String branch) {
+		this.branch = branch;
 	}
 
 }
