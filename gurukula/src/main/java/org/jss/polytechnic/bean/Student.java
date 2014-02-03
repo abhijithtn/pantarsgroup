@@ -1,6 +1,15 @@
 package org.jss.polytechnic.bean;
 
-public class Student {
+import java.io.Serializable;
+import java.util.Map;
+import java.util.Map.Entry;
+
+public class Student implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4122612149984056928L;
 
 	private String reg_no;
 
@@ -134,6 +143,32 @@ public class Student {
 	 */
 	public void setBranch(String branch) {
 		this.branch = branch;
+	}
+
+	public Student mask(Map<String, String> filter) {
+
+		for (Entry<String, String> entry : filter.entrySet()) {
+			mask(entry.getKey(), entry.getValue());
+		}
+
+		return this;
+	}
+
+	public Student mask(String pattern, String value) {
+		if (pattern == null || value == null)
+			return this;
+
+		if ("name".equals(pattern)) {
+			setName(value);
+		} else if ("reg_no".equals(pattern)) {
+			setReg_no(value);
+		} else if ("category".equals(pattern)) {
+			setCategory(value);
+		} else if ("gender".equals(pattern)) {
+			setGender(value);
+		}
+
+		return this;
 	}
 
 }

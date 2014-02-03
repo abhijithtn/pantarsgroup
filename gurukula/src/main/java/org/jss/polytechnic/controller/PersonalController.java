@@ -86,7 +86,7 @@ public class PersonalController implements Serializable {
 
 				@Override
 				public Object getRowKey(Student object) {
-					return object.getReg_no();
+					return object;
 				}
 
 				@Override
@@ -98,7 +98,7 @@ public class PersonalController implements Serializable {
 							: "ASC";
 
 					Student student = new Student();
-					// result.mask(filters);
+					student.mask(filters);
 
 					QueryData<Student> data = new QueryData<Student>(first,
 							pageSize, sortField, order, student);

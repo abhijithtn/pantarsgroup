@@ -10,7 +10,8 @@
 			var="item" paginator="true" rows="10" lazy="true"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="10,20,50"
-			emptyMessage="No Result found with given criteria" rowKey="#{item.reg_no}">
+			emptyMessage="No Result found with given criteria"
+			rowKey="#{item.reg_no}">
 			<p:column headerText="Name" sortBy="name" filterBy="#{item.name}">
 				<h:outputText value="#{item.name}" />
 			</p:column>
@@ -24,13 +25,6 @@
 			<p:column headerText="Gender" sortBy="gender"
 				filterBy="#{item.gender}">
 				<h:outputText value="#{item.gender}" />
-			</p:column>
-			<p:column>
-				<p:commandButton id="selectButton" icon="ui-icon-search"
-					title="View">
-					<f:setPropertyActionListener
-						target="#{personalController.selectedStudent}" value="#{item}" />
-				</p:commandButton>
 			</p:column>
 		</p:dataTable>
 	</h:panelGroup>
