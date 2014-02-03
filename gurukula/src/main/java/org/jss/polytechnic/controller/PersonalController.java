@@ -7,11 +7,15 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import org.jss.polytechnic.bean.Student;
 import org.jss.polytechnic.dao.QueryData;
 import org.jss.polytechnic.dao.StudentDao;
+import org.jss.polytechnic.utils.JsfUtils;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
@@ -139,6 +143,48 @@ public class PersonalController implements Serializable {
 		}
 
 		return null;
+	}
+
+	public void createOrUpdateListener(ActionEvent event) {
+		createOrUpdateListener();
+	}
+
+	public void createOrUpdateListener() {
+		try {
+			if (selectedStudent.getReg_no() == null) {
+				// Do nothing
+			} else {
+				dao.updateStudent(selectedStudent);
+				JsfUtils.addSuccessMessage("Student details saved successfully");
+			}
+			selectedStudent = new Student();
+		} catch (Exception e) {
+			System.out.println(">>>>> selectedAddress = " + selectedStudent);
+			e.printStackTrace();
+			JsfUtils.addErrorMessage("Student details not saved.");
+		}
+	}
+
+	public void clearListener(ActionEvent event) {
+		selectedStudent = new Student();
+		UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+		UIComponent component = viewRoot.findComponent("form2");
+		JsfUtils.clearComponentHierarchy(component);
+	}
+
+	public void deleteListener(ActionEvent event) {
+		try {
+			if (selectedStudent.getReg_no() == null) {
+				// Do nothing
+			} else {
+				dao.deleteStudent(selectedStudent);
+				JsfUtils.addSuccessMessage("Student details deleted successfully");
+			}
+			selectedStudent = new Student();
+		} catch (Exception e) {
+			e.printStackTrace();
+			JsfUtils.addErrorMessage("");
+		}
 	}
 
 }

@@ -191,4 +191,66 @@ public class StudentDao {
 
 		return params;
 	}
+
+	public boolean updateStudent(Student student) {
+
+		Connection conn = null;
+
+		try {
+
+			String updateQuery = "UPDATE STUDENT_INFO SET NAME = ?, FATHER = ?, MOTHER = ?, GENDER = ?, CATEGORY = ?, BRANCH = ? WHERE REG_NO = ?";
+
+			conn = DatabaseConnection.DB.getConnection();
+
+			PreparedStatement pstmt = conn.prepareStatement(updateQuery);
+			int i = 1;
+			pstmt.setString(i++, student.getName());
+			pstmt.setString(i++, student.getFather());
+			pstmt.setString(i++, student.getMother());
+			pstmt.setString(i++, student.getGender());
+			pstmt.setString(i++, student.getCategory());
+			pstmt.setString(i++, student.getBranch());
+			pstmt.setString(i++, student.getReg_no());
+
+			int rowCount = pstmt.executeUpdate();
+
+			return rowCount == 1;
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			DbUtils.closeQuietly(conn);
+		}
+
+		return false;
+
+	}
+
+	public boolean deleteStudent(Student student) {
+
+		Connection conn = null;
+
+		try {
+
+			String updateQuery = "DELETE STUDENT_INFO WHERE REG_NO = ?";
+
+			conn = DatabaseConnection.DB.getConnection();
+
+			PreparedStatement pstmt = conn.prepareStatement(updateQuery);
+			int i = 1;
+			pstmt.setString(i++, student.getReg_no());
+
+			int rowCount = pstmt.executeUpdate();
+
+			return rowCount == 1;
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			DbUtils.closeQuietly(conn);
+		}
+
+		return false;
+
+	}
 }

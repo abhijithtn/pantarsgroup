@@ -26,7 +26,47 @@
 				filterBy="#{item.gender}">
 				<h:outputText value="#{item.gender}" />
 			</p:column>
+			<p:column>
+				<p:commandButton id="selectButton" update=":form2:panel"
+					icon="ui-icon-search" title="View">
+					<f:setPropertyActionListener
+						target="#{personalController.selectedStudent}" value="#{item}" />
+				</p:commandButton>
+			</p:column>
 		</p:dataTable>
 	</h:panelGroup>
+</h:form>
+
+<p:confirmDialog id="confirmDialog" showEffect="fade" hideEffect="fade"
+	global="true">
+	<h:form id="deletion">
+		<p:commandButton id="confirm" value="Yes" immediate="true"
+			styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+			actionListener="#{personalController.deleteListener}"
+			update=":formPersonal:studentTable,:form2:panel,:formPersonal:growl" />
+		<p:commandButton id="decline" value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	</h:form>
+</p:confirmDialog>
+
+<h:form id="form2">
+	<p:panelGrid columns="3" id="panel" cellpadding="5"
+		styleClass="ui-widget-content-borderless"
+		columnClasses="mp-column-center">
+		<f:facet name="header" align="left">
+			<h:outputText value="Student details " />
+			<p:commandButton value="Save" icon="ui-icon-check"
+				actionListener="#{personalController.createOrUpdateListener}"
+				update=":formPersonal:studentTable,:form2:panel,:formPersonal:growl" />
+			<p:commandButton value="Delete" icon="ui-icon-trash">
+				<p:confirm header="Deletion process" severity="alert"
+					icon="ui-icon-alert" message="Can you confirm your deletion?" />
+			</p:commandButton>
+		</f:facet>
+		<ui:include src="/pages/student/personalEdit.xhtml">
+			<ui:param name="affectFormId" value=":form2" />
+			<ui:param name="idValue" value="1" />
+		</ui:include>
+	</p:panelGrid>
 </h:form>
 </html>

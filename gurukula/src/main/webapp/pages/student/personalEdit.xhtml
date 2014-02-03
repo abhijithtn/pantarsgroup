@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+<!-- those two empty p : outputLabel are totally unbelievable but there seems to be needed 
+     when the artifact is used from a ui:include otherwise there is gap of one column and the
+	 label, field, validation are not aligned...&nbsp;
+-->
+<p:outputLabel>
+</p:outputLabel>
+<p:outputLabel>
+</p:outputLabel>
+
+<p:outputLabel>Register Number</p:outputLabel>
+<p:inputText size="15" maxlength="15" label="Register Number"
+	id="lblRegNo-#{idValue}"
+	value="#{personalController.selectedStudent.reg_no}" required="true"
+	readonly="true" />
+<p:message for="lblRegNo-#{idValue}" />
+
+<p:outputLabel>Name *</p:outputLabel>
+<p:inputText size="40" maxlength="55" label="Name"
+	id="lblName-#{idValue}"
+	value="#{personalController.selectedStudent.name}" required="true" />
+<p:message for="lblName-#{idValue}" />
+
+<p:outputLabel>Father Name</p:outputLabel>
+<p:inputText size="40" maxlength="55" label="Father Name"
+	id="lblfName-#{idValue}"
+	value="#{personalController.selectedStudent.father}" required="false" />
+<p:message for="lblfName-#{idValue}" />
+
+<p:outputLabel>Mother Name</p:outputLabel>
+<p:inputText size="40" maxlength="55" label="Mother Name"
+	id="lblmName-#{idValue}"
+	value="#{personalController.selectedStudent.mother}" required="false" />
+<p:message for="lblmName-#{idValue}" />
+
+<p:outputLabel>Gender</p:outputLabel>
+<p:inputText size="1" maxlength="1" label="Gender"
+	id="lblGender-#{idValue}"
+	value="#{personalController.selectedStudent.gender}" required="true"
+	disabled="true" readonly="true" />
+<p:message for="lblGender-#{idValue}" />
+
+<p:outputLabel>Category *</p:outputLabel>
+<p:inputText size="3" maxlength="3" label="Category"
+	id="lblCategory-#{idValue}"
+	value="#{personalController.selectedStudent.category}" required="true" />
+<p:message for="lblCategory-#{idValue}" />
+
+<p:outputLabel rendered="false">Branch *</p:outputLabel>
+<p:inputText size="14" maxlength="14" label="Longitude"
+	id="lblLongitude-#{idValue}"
+	value="#{personalController.selectedStudent.longitude}"
+	required="false" rendered="false" />
+<p:message for="lblLongitude-#{idValue}" />
+
+<!-- those two empty p : outputLabel are totally inbelievable but there seems to be needed 
+     when the artifact is used from a ui:include otherwise there is gap of one column and the
+	 label, field, validation are not aligned...&nbsp;
+-->
+<p:outputLabel>
+</p:outputLabel>
+<p:outputLabel>
+</p:outputLabel>
+</html>
+
