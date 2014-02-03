@@ -202,6 +202,8 @@ public class StudentDao {
 
 			conn = DatabaseConnection.DB.getConnection();
 
+			conn.setAutoCommit(true);
+
 			PreparedStatement pstmt = conn.prepareStatement(updateQuery);
 			int i = 1;
 			pstmt.setString(i++, student.getName());
@@ -232,9 +234,11 @@ public class StudentDao {
 
 		try {
 
-			String updateQuery = "DELETE STUDENT_INFO WHERE REG_NO = ?";
+			String updateQuery = "DELETE FROM STUDENT_INFO WHERE REG_NO = ?";
 
 			conn = DatabaseConnection.DB.getConnection();
+
+			conn.setAutoCommit(true);
 
 			PreparedStatement pstmt = conn.prepareStatement(updateQuery);
 			int i = 1;
