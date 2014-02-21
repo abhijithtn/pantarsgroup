@@ -51,13 +51,6 @@
 	value="#{personalController.selectedStudent.category}" required="true" />
 <p:message for="lblCategory-#{idValue}" />
 
-<p:outputLabel rendered="false">Branch *</p:outputLabel>
-<p:inputText size="14" maxlength="14" label="Longitude"
-	id="lblLongitude-#{idValue}"
-	value="#{personalController.selectedStudent.longitude}"
-	required="false" rendered="false" />
-<p:message for="lblLongitude-#{idValue}" />
-
 <!-- those two empty p : outputLabel are totally inbelievable but there seems to be needed 
      when the artifact is used from a ui:include otherwise there is gap of one column and the
 	 label, field, validation are not aligned...&nbsp;

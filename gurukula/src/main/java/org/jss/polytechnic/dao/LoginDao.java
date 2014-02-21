@@ -30,7 +30,49 @@ public class LoginDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
 
+	public boolean changePassword(final String username, final String currPwd,
+			final String newPwd) throws Exception {
+
+		Connection conn = DatabaseConnection.DB.getConnection();
+
+		try {
+			PreparedStatement pstmt = conn
+					.prepareStatement("SELECT COUNT(1) FROM USER_INFO WHERE UPPER(USERNAME)=UPPER(?) AND PASSWORD=MD5(?)");
+			pstmt.setString(1, username);
+			pstmt.setString(2, currPwd);
+			ResultSet rs = pstmt.executeQuery();
+			int rowCount = 0;
+			while (rs.next()) {
+				rowCount = rs.getInt(1);
+			}
+
+			if (rowCount == 1) {
+				DbUtils.closeQuietly(null, pstmt, rs);
+				pstmt = conn
+						.prepareStatement("UPDATE USER_INFO SET PASSWORD = MD5(?) WHERE UPPER(USERNAME) = UPPER(?) AND PASSWORD=MD5(?)");
+				pstmt.setString(1, newPwd);
+				pstmt.setString(2, username);
+				pstmt.setString(3, currPwd);
+				rowCount = pstmt.executeUpdate();
+			} else {
+				throw new Exception("Incorrect current password");
+			}
+
+			DbUtils.closeQuietly(null, pstmt, null);
+
+			if (rowCount == 1) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.closeQuietly(conn, null, null);
+		}
+
+		return false;
 	}
 
 }

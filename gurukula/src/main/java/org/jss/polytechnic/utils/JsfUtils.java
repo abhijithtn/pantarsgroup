@@ -70,4 +70,9 @@ public class JsfUtils {
 
 		}
 	}
+
+	public static String getCurrentUser() {
+		return FacesContext.getCurrentInstance().getExternalContext()
+				.getRemoteUser();
+	}
 }

@@ -30,7 +30,7 @@ public class GurukulaMenu {
 	public static final String UPLOAD_RESULT_URL = "/pages/upload/uploadResult.xhtml";
 	public static final String UPLOAD_PERSONAL_DETAILS_URL = "/pages/upload/uploadPersonalDetails.xhtml";
 	public static final String settings_INDEX = "2";
-	public static final String CHANGE_PASSWORD_URL = "/pages/student/changePassword.xhtml";
+	public static final String CHANGE_PASSWORD_URL = "/pages/settings/changePassword.xhtml";
 	public static final String LOGOUT_URL = "/pages/student/logout.xhtml";
 
 	private MenuModel model;
