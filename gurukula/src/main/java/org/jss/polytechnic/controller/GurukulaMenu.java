@@ -90,42 +90,42 @@ public class GurukulaMenu {
 	public void load() {
 		model = new DefaultMenuModel();
 		accordion = new AccordionPanel();
-		DefaultSubMenu submenupet = new DefaultSubMenu();
-		submenupet.setLabel("Student");
-		
+		DefaultSubMenu submenuStudent = new DefaultSubMenu();
+		submenuStudent.setLabel("Student");
+
 		//
-		Tab tabpet = new Tab();
-		tabpet.setTitle("Student");
+		Tab tabStudent = new Tab();
+		tabStudent.setTitle("Student");
 
-		submenupet.addElement(getItem("Personal", PERSONAL_ACCESS_URL));
-		tabpet.getChildren().add(getPanel(getTuple(PERSONAL_ACCESS_URL)));
+		submenuStudent.addElement(getItem("Personal", PERSONAL_ACCESS_URL));
+		tabStudent.getChildren().add(getPanel(getTuple(PERSONAL_ACCESS_URL)));
 
-		submenupet.addElement(getItem("Academic", ACADEMIC_ACCESS_URL));
-		tabpet.getChildren().add(getPanel(getTuple(ACADEMIC_ACCESS_URL)));
+		submenuStudent.addElement(getItem("Academic", ACADEMIC_ACCESS_URL));
+		tabStudent.getChildren().add(getPanel(getTuple(ACADEMIC_ACCESS_URL)));
 
-		model.addElement(submenupet);
-		accordion.getChildren().add(tabpet);
+		model.addElement(submenuStudent);
+		accordion.getChildren().add(tabStudent);
 
-		DefaultSubMenu submenuproduct = new DefaultSubMenu();
-		submenuproduct.setLabel("Upload");
+		DefaultSubMenu submenuUpload = new DefaultSubMenu();
+		submenuUpload.setLabel("Upload");
 		//
-		Tab tabproduct = new Tab();
-		tabproduct.setTitle("Upload");
+		Tab tabUpload = new Tab();
+		tabUpload.setTitle("Upload");
 
-		submenuproduct.addElement(getItem("Upload Results", UPLOAD_RESULT_URL));
-		tabproduct.getChildren().add(getPanel(getTuple(UPLOAD_RESULT_URL)));
+		submenuUpload.addElement(getItem("Upload Results", UPLOAD_RESULT_URL));
+		tabUpload.getChildren().add(getPanel(getTuple(UPLOAD_RESULT_URL)));
 
-		submenuproduct.addElement(getItem("Upload Student Details",
+		submenuUpload.addElement(getItem("Upload Student Details",
 				UPLOAD_PERSONAL_DETAILS_URL));
-		tabproduct.getChildren().add(
+		tabUpload.getChildren().add(
 				getPanel(getTuple(UPLOAD_PERSONAL_DETAILS_URL)));
 
-		model.addElement(submenuproduct);
-		accordion.getChildren().add(tabproduct);
+		model.addElement(submenuUpload);
+		accordion.getChildren().add(tabUpload);
 
 		//
 		DefaultSubMenu submenusettings = new DefaultSubMenu();
-		submenupet.setLabel("Settings");
+		submenusettings.setLabel("Settings");
 		//
 		Tab tabsettings = new Tab();
 		tabsettings.setTitle("Settings");
