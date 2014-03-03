@@ -6,28 +6,27 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-	<http auto-config="true" create-session="ifRequired">
-		<intercept-url pattern="/login.xhtml*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<intercept-url pattern="/student*" access="ROLE_USER" />
-		<intercept-url pattern="/settings*" access="ROLE_USER" />
-		<intercept-url pattern="/upload*" access="ROLE_ADMIN" />
-
-		<form-login login-page="/login.xhtml" default-target-url="/index.xhtml"
-			always-use-default-target="true" login-processing-url="/j_spring_security_check" />
-
-		<logout invalidate-session="true" />
-
-		<session-management>
-			<concurrency-control error-if-maximum-exceeded="true"
-				max-sessions="1" />
-		</session-management>
-	</http>
-
-	<authentication-manager>
-		<authentication-provider ref="authProvider" />
-	</authentication-manager>
+	<beans:bean id="applicationContextProvider"
+		class="org.jss.polytechnic.utils.ApplicationContextProvider" />
 
 	<beans:bean id="authProvider"
 		class="org.jss.polytechnic.security.CustomAuthentication" />
+
+	<http auto-config="true" create-session="ifRequired">
+		<intercept-url pattern="/login.xhtml*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/pages/*" access="ROLE_USER" />
+		<intercept-url pattern="/pages/upload/*" access="ROLE_ADMIN" />
+
+		<form-login login-page="/login.xhtml" default-target-url="/index.xhtml"
+			always-use-default-target="true" />
+
+		<logout invalidate-session="true" delete-cookies="true"
+			logout-success-url="/login.xhtml" />
+
+	</http>
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="authProvider" />
+	</authentication-manager>
 
 </beans:beans>

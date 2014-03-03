@@ -55,7 +55,7 @@ public class CustomAuthentication implements AuthenticationProvider {
 
 	@Override
 	public boolean supports(Class<?> paramClass) {
-		return false;
+		return true;
 	}
 
 }

@@ -2,20 +2,24 @@ package org.jss.polytechnic.controller;
 
 import java.io.IOException;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 
+import org.jss.polytechnic.bean.UserInfo;
+import org.jss.polytechnic.utils.ApplicationContextProvider;
 import org.jss.polytechnic.utils.JsfUtils;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.WebAttributes;
 
 @ManagedBean(name = "loginController")
@@ -27,67 +31,59 @@ public class LoginController implements PhaseListener {
 	 */
 	private static final long serialVersionUID = -4103888558748962458L;
 
-	// private UserInfo userInfo;
-	//
-	// private boolean hasLoggedIn;
-	//
-	// @PostConstruct
-	// public void postContruct() {
-	// userInfo = new UserInfo();
-	// hasLoggedIn = false;
-	// }
-	//
-	// /**
-	// * @return the userInfo
-	// */
-	// public UserInfo getUserInfo() {
-	// return userInfo;
-	// }
-	//
-	// /**
-	// * @param userInfo
-	// * the userInfo to set
-	// */
-	// public void setUserInfo(UserInfo userInfo) {
-	// this.userInfo = userInfo;
-	// }
-	//
-	// /**
-	// * @return the hasLoggedIn
-	// */
-	// public boolean isHasLoggedIn() {
-	// return hasLoggedIn;
-	// }
+	private UserInfo userInfo;
+
+	private boolean hasLoggedIn;
+
+	@PostConstruct
+	public void postContruct() {
+		userInfo = new UserInfo();
+		hasLoggedIn = false;
+	}
+
+	/**
+	 * @return the userInfo
+	 */
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	/**
+	 * @param userInfo
+	 *            the userInfo to set
+	 */
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
+	}
+
+	/**
+	 * @return the hasLoggedIn
+	 */
+	public boolean isHasLoggedIn() {
+		return hasLoggedIn;
+	}
 
 	public String login() throws ServletException, IOException {
 
-		ExternalContext context = FacesContext.getCurrentInstance()
-				.getExternalContext();
+		try {
 
-		RequestDispatcher dispatcher = ((ServletRequest) context.getRequest())
-				.getRequestDispatcher("/j_spring_security_check");
-		dispatcher.forward((ServletRequest) context.getRequest(),
-				(ServletResponse) context.getResponse());
+			AuthenticationManager manager = (AuthenticationManager) ApplicationContextProvider
+					.getBean("authenticationManager");
 
-		FacesContext.getCurrentInstance().responseComplete();
+			Authentication request = new UsernamePasswordAuthenticationToken(
+					userInfo.getUsername(), userInfo.getPassword());
 
-		// System.err.println(userInfo);
-		//
-		// LoginDao dao = new LoginDao();
-		//
-		// dao.validateCredentials(userInfo);
-		//
-		// if (userInfo.getRole() != 0) {
-		// hasLoggedIn = true;
-		// return "welcome";
-		// }
-		//
-		// FacesContext.getCurrentInstance().addMessage(
-		// null,
-		// new FacesMessage(FacesMessage.SEVERITY_ERROR,
-		// "Invalid username or password.", "Login denied"));
+			Authentication result = manager.authenticate(request);
 
-		return null;
+			SecurityContextHolder.getContext().setAuthentication(result);
+
+		} catch (AuthenticationException e) {
+			e.printStackTrace();
+			JsfUtils.addErrorMessage("Invalid Username or Password");
+			return null;
+		}
+
+		return "success";
 	}
 
 	@Override

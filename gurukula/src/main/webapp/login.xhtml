@@ -20,7 +20,8 @@
 
 					<h:outputLabel for="j_username" value="Username" />
 
-					<p:inputText id="j_username" required="true" label="Username" />
+					<p:inputText id="j_username" required="true" label="Username"
+						value="#{loginController.userInfo.username}" />
 
 					<p:spacer />
 
@@ -28,7 +29,7 @@
 
 					<h:outputLabel for="j_password" value="Password" />
 
-					<p:password id="j_password" required="true" label="Password" />
+					<p:password id="j_password" required="true" label="Password" value="#{loginController.userInfo.password}"/>
 
 					<p:spacer />
 

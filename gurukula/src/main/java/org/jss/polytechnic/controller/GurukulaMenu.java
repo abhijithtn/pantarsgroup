@@ -31,7 +31,7 @@ public class GurukulaMenu {
 	public static final String UPLOAD_PERSONAL_DETAILS_URL = "/pages/upload/uploadPersonalDetails.xhtml";
 	public static final String settings_INDEX = "2";
 	public static final String CHANGE_PASSWORD_URL = "/pages/settings/changePassword.xhtml";
-	public static final String LOGOUT_URL = "/pages/student/logout.xhtml";
+	public static final String LOGOUT_URL = "/j_spring_security_logout";
 
 	private MenuModel model;
 	private AccordionPanel accordion;
@@ -92,6 +92,7 @@ public class GurukulaMenu {
 		accordion = new AccordionPanel();
 		DefaultSubMenu submenupet = new DefaultSubMenu();
 		submenupet.setLabel("Student");
+		
 		//
 		Tab tabpet = new Tab();
 		tabpet.setTitle("Student");
