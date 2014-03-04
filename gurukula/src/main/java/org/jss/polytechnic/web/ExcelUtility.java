@@ -80,8 +80,12 @@ public class ExcelUtility {
 
 			String[] ex = br.getEx();
 			for (int j = 0; j < ex.length;) {
-				ex[j++] = getStringCellValue(r.getCell(i++,
+				String marks = getStringCellValue(r.getCell(i++,
 						Row.CREATE_NULL_AS_BLANK));
+				if (!NumberUtils.isDigits(marks)) {
+					marks = "0";
+				}
+				ex[j++] = marks;
 			}
 
 			br.setEx(ex);
@@ -92,8 +96,15 @@ public class ExcelUtility {
 
 			String[] in = br.getIn();
 			for (int j = 0; j < in.length;) {
-				in[j++] = getStringCellValue(r.getCell(i++,
+				String marks = getStringCellValue(r.getCell(i++,
 						Row.CREATE_NULL_AS_BLANK));
+				if (!NumberUtils.isDigits(marks)) {
+					marks = "0";
+				}
+				in[j++] = marks;
+
+				// in[j++] = getStringCellValue(r.getCell(i++,
+				// Row.CREATE_NULL_AS_BLANK));
 			}
 
 			br.setInTotal(NumberUtils.toInt(
