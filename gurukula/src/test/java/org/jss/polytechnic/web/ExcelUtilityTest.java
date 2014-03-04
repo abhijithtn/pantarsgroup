@@ -33,8 +33,11 @@ public class ExcelUtilityTest {
 
 	@Test
 	public final void testParsePersonalSheet() throws Exception {
-		List<Student> studentList = ExcelUtility.parsePersonalSheet(
-				new FileInputStream("src/test/resources/mclist.xls"), false);
+		List<Student> studentList = ExcelUtility
+				.parsePersonalSheet(
+						new FileInputStream(
+								"C:/Users/N25037/Desktop/UPLOADED_13/UPLOADED_13/CE.xlsx"),
+						true);
 		Assert.assertNotNull(studentList);
 	}
 

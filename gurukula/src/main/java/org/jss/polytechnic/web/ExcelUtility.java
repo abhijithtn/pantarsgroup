@@ -83,8 +83,8 @@ public class ExcelUtility {
 				String marks = getStringCellValue(r.getCell(i++,
 						Row.CREATE_NULL_AS_BLANK));
 				if (!(NumberUtils.isNumber(marks))) {
-					if (!(marks.equalsIgnoreCase("AB") || marks
-							.equalsIgnoreCase("XX"))) {
+					if (!(marks.equalsIgnoreCase("AB")
+							|| marks.equalsIgnoreCase("XX") || marks.isEmpty())) {
 						marks = "ZZ";
 					}
 				}
@@ -102,8 +102,8 @@ public class ExcelUtility {
 				String marks = getStringCellValue(r.getCell(i++,
 						Row.CREATE_NULL_AS_BLANK));
 				if (!NumberUtils.isNumber(marks)) {
-					if (!(marks.equalsIgnoreCase("AB") || marks
-							.equalsIgnoreCase("XX"))) {
+					if (!(marks.equalsIgnoreCase("AB")
+							|| marks.equalsIgnoreCase("XX") || marks.isEmpty())) {
 						marks = "ZZ";
 					}
 				}
@@ -168,11 +168,11 @@ public class ExcelUtility {
 
 			if (!hasData
 					&& StringUtils.equalsIgnoreCase(c.getStringCellValue(),
-							"Reg_No")) {
+							"SLNo.")) {
 
 				int lastCellNum = r.getLastCellNum();
 
-				if (lastCellNum < 6) {
+				if (lastCellNum < 7) {
 					throw new InvalidObjectException("File has less columns");
 				}
 				hasData = true;
@@ -183,13 +183,14 @@ public class ExcelUtility {
 			if (!hasData)
 				continue;
 
+			int i = 1;
+
 			Student student = new Student();
-			student.setReg_no(getStringCellValue(c));
+			student.setReg_no(getStringCellValue(r.getCell(i++,
+					Row.CREATE_NULL_AS_BLANK)));
 			if (StringUtils.isEmpty(student.getReg_no())) {
 				break;
 			}
-
-			int i = 1;
 
 			student.setName(getStringCellValue(r.getCell(i++,
 					Row.CREATE_NULL_AS_BLANK)));
