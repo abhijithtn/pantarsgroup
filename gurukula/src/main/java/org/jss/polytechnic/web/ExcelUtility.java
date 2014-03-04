@@ -101,7 +101,7 @@ public class ExcelUtility {
 			for (int j = 0; j < in.length;) {
 				String marks = getStringCellValue(r.getCell(i++,
 						Row.CREATE_NULL_AS_BLANK));
-				if (!NumberUtils.isDigits(marks)) {
+				if (!NumberUtils.isNumber(marks)) {
 					if (!(marks.equalsIgnoreCase("AB") || marks
 							.equalsIgnoreCase("XX"))) {
 						marks = "ZZ";
