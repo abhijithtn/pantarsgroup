@@ -24,8 +24,13 @@
 		<form-login login-page="/login.xhtml" default-target-url="/index.xhtml"
 			always-use-default-target="true" />
 
-		<logout invalidate-session="true" delete-cookies="true"
-			logout-success-url="/login.xhtml" />
+		<logout invalidate-session="true" logout-success-url="/login.xhtml"
+			delete-cookies="JSESSIONID" />
+
+		<session-management>
+			<concurrency-control max-sessions="1"
+				error-if-maximum-exceeded="true" expired-url="/login.xhtml" />
+		</session-management>
 
 	</http>
 

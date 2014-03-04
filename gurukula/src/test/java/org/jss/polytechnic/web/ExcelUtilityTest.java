@@ -26,7 +26,7 @@ public class ExcelUtilityTest {
 
 	@Before
 	public final void setUp() {
-		file = new File("src/test/resources/me.xlsx");
+		file = new File("src/test/resources/is.xlsx");
 		System.out.println(file.getAbsolutePath());
 		Assert.assertNotNull(file);
 	}
@@ -45,7 +45,6 @@ public class ExcelUtilityTest {
 		Assert.assertNotNull(resultList);
 	}
 
-	@Test
 	public final void testInsertion() throws Exception {
 		List<BoardResult> resultList = ExcelUtility.parseResultSheet(
 				new FileInputStream(file), true);
