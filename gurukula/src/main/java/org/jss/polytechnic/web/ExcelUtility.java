@@ -82,7 +82,7 @@ public class ExcelUtility {
 			for (int j = 0; j < ex.length;) {
 				String marks = getStringCellValue(r.getCell(i++,
 						Row.CREATE_NULL_AS_BLANK));
-				if (!NumberUtils.isDigits(marks)) {
+				if (!(NumberUtils.isNumber(marks))) {
 					if (!(marks.equalsIgnoreCase("AB") || marks
 							.equalsIgnoreCase("XX"))) {
 						marks = "ZZ";
@@ -221,6 +221,6 @@ public class ExcelUtility {
 
 	private static String getStringCellValue(Cell c) {
 		c.setCellType(Cell.CELL_TYPE_STRING);
-		return c.getStringCellValue();
+		return StringUtils.trimToEmpty(c.getStringCellValue());
 	}
 }
