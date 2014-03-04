@@ -14,9 +14,12 @@
 
 	<http auto-config="true" create-session="ifRequired">
 		<intercept-url pattern="/login.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<intercept-url pattern="/**" access="ROLE_USER" />
+		<intercept-url pattern="/images/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/javax.faces.resource/**"
+			access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/pages/upload/**" access="ROLE_ADMIN" />
-		<intercept-url pattern="/pages/**" access="ROLE_USER" />		
+		<intercept-url pattern="/pages/**" access="ROLE_USER" />
+		<intercept-url pattern="/**" access="ROLE_USER" />
 
 		<form-login login-page="/login.xhtml" default-target-url="/index.xhtml"
 			always-use-default-target="true" />

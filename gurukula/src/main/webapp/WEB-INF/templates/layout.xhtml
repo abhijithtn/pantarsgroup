@@ -7,11 +7,11 @@
 <h:head>
 	<title>Welcome to Gurukula: Student Management System</title>
 </h:head>
-    <style type="text/css">
-        .ui-widget,.ui-widget .ui-widget {
-            font-size: 92% !important;
-        }       
-    </style>
+<style type="text/css">
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 92% !important;
+}
+</style>
 <h:body>
 	<p:layout fullPage="true">
 		<p:layoutUnit position="north" size="95" resizable="false"
@@ -29,14 +29,13 @@
 		</p:layoutUnit>
 
 		<p:layoutUnit position="west" size="350px" resizable="false"
-			closable="false" collapsible="true" effect="drop"
-			rendered="false">
+			closable="false" collapsible="true" effect="drop" rendered="false">
 			<h:form>
 				<ui:include src="navigation.xhtml" />
 			</h:form>
 		</p:layoutUnit>
 
-		<p:layoutUnit position="center">
+		<p:layoutUnit id="centerLayout" position="center">
 			<ui:insert name="content">This is the default content</ui:insert>
 		</p:layoutUnit>
 	</p:layout>
