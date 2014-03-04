@@ -26,16 +26,16 @@
 	value="#{personalController.selectedStudent.name}" required="true" />
 <p:message for="lblName-#{idValue}" />
 
-<p:outputLabel>Father Name</p:outputLabel>
+<p:outputLabel>Father Name *</p:outputLabel>
 <p:inputText size="40" maxlength="55" label="Father Name"
 	id="lblfName-#{idValue}"
-	value="#{personalController.selectedStudent.father}" required="false" />
+	value="#{personalController.selectedStudent.father}" required="true" />
 <p:message for="lblfName-#{idValue}" />
 
-<p:outputLabel>Mother Name</p:outputLabel>
+<p:outputLabel>Mother Name *</p:outputLabel>
 <p:inputText size="40" maxlength="55" label="Mother Name"
 	id="lblmName-#{idValue}"
-	value="#{personalController.selectedStudent.mother}" required="false" />
+	value="#{personalController.selectedStudent.mother}" required="true" />
 <p:message for="lblmName-#{idValue}" />
 
 <p:outputLabel>Gender</p:outputLabel>

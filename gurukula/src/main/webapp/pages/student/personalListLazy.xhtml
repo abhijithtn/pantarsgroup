@@ -59,8 +59,8 @@
 				actionListener="#{personalController.createOrUpdateListener}"
 				update=":formPersonal:studentTable,:form2:panel,:formPersonal:growl" />
 			<p:commandButton value="Delete" icon="ui-icon-trash">
-				<p:confirm header="Deletion process" severity="alert"
-					icon="ui-icon-alert" message="Can you confirm your deletion?" />
+				<p:confirm header="Deletion process" icon="ui-icon-alert"
+					message="Can you confirm your deletion?" />
 			</p:commandButton>
 		</f:facet>
 		<ui:include src="/pages/student/personalEdit.xhtml">
