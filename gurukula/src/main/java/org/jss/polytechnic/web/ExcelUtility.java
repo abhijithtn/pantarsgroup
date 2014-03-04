@@ -83,7 +83,10 @@ public class ExcelUtility {
 				String marks = getStringCellValue(r.getCell(i++,
 						Row.CREATE_NULL_AS_BLANK));
 				if (!NumberUtils.isDigits(marks)) {
-					marks = "0";
+					if (!(marks.equalsIgnoreCase("AB") || marks
+							.equalsIgnoreCase("XX"))) {
+						marks = "ZZ";
+					}
 				}
 				ex[j++] = marks;
 			}
@@ -99,7 +102,10 @@ public class ExcelUtility {
 				String marks = getStringCellValue(r.getCell(i++,
 						Row.CREATE_NULL_AS_BLANK));
 				if (!NumberUtils.isDigits(marks)) {
-					marks = "0";
+					if (!(marks.equalsIgnoreCase("AB") || marks
+							.equalsIgnoreCase("XX"))) {
+						marks = "ZZ";
+					}
 				}
 				in[j++] = marks;
 
