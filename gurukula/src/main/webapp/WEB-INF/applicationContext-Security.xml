@@ -13,7 +13,8 @@
 		class="org.jss.polytechnic.security.CustomAuthentication" />
 
 	<http auto-config="true" create-session="ifRequired">
-		<intercept-url pattern="/login.xhtml*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/login.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/**" access="ROLE_USER" />
 		<intercept-url pattern="/pages/upload/**" access="ROLE_ADMIN" />
 		<intercept-url pattern="/pages/**" access="ROLE_USER" />		
 
