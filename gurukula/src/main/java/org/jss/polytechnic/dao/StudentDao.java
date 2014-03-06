@@ -40,7 +40,7 @@ public class StudentDao {
 
 		} catch (SQLException e) {
 			try {
-				System.out.println("Rolled back");
+				System.out.println("Rolled back : " + e.getMessage());
 				conn.rollback();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
