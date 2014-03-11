@@ -333,10 +333,12 @@ public class ResultDao {
 	private void calculateTotalResult(List<Result> resultList) {
 
 		boolean isResultSet = false;
+		boolean isAllZZ = false;
 
 		for (Result result : resultList) {
 
 			isResultSet = false;
+			isAllZZ = true;
 
 			String[] ex = result.getEx();
 			String[] in = result.getIn();
@@ -348,6 +350,10 @@ public class ResultDao {
 			int inTotal = 0;
 
 			for (int i = 0; i < ex.length; i++) {
+
+				if (!StringUtils.equalsIgnoreCase(ex[i], "ZZ")) {
+					isAllZZ = false;
+				}
 
 				int exMarks = NumberUtils.toInt(ex[i], 0);
 				int intMarks = NumberUtils.toInt(in[i], 0);
@@ -379,6 +385,11 @@ public class ResultDao {
 			result.setExTotal(exTotal);
 			result.setInTotal(inTotal);
 			result.setTotal(total);
+
+			if (isAllZZ) {
+				result.setResult("Withheld");
+				continue;
+			}
 
 			if (!isResultSet && qpCount > 0) {
 				result.setResult("Pass");
