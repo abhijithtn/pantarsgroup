@@ -23,6 +23,10 @@ public class Result implements Serializable {
 
 	private String[] qp;
 
+	private int exTotal;
+
+	private int inTotal;
+
 	private int total;
 
 	private String result;
@@ -108,6 +112,36 @@ public class Result implements Serializable {
 	 */
 	public void setQp(String[] qp) {
 		this.qp = qp;
+	}
+
+	/**
+	 * @return the exTotal
+	 */
+	public int getExTotal() {
+		return exTotal;
+	}
+
+	/**
+	 * @param exTotal
+	 *            the exTotal to set
+	 */
+	public void setExTotal(int exTotal) {
+		this.exTotal = exTotal;
+	}
+
+	/**
+	 * @return the inTotal
+	 */
+	public int getInTotal() {
+		return inTotal;
+	}
+
+	/**
+	 * @param inTotal
+	 *            the inTotal to set
+	 */
+	public void setInTotal(int inTotal) {
+		this.inTotal = inTotal;
 	}
 
 	/**

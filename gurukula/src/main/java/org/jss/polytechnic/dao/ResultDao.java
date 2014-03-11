@@ -12,9 +12,9 @@ import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.jss.polytechnic.bean.BoardResult;
 import org.jss.polytechnic.bean.Result;
-import org.jss.polytechnic.web.Constants;
 
 public class ResultDao {
 
@@ -40,17 +40,23 @@ public class ResultDao {
 					new BeanListHandler<Result>(Result.class,
 							new BasicRowProcessor(new ResultBeanProcessor())));
 
+			calculateTotalResult(updatableResult);
+
 			params = getParamForUpdateExamResults(updatableResult);
 
-			qr.batch(conn, Queries.UPDATE_EXAM_MARKS, params);
+			qr.batch(conn, Queries.UPDATE_EXAM_RESULTS, params);
 
-			qr.update(conn, Queries.UPDATE_EXAM_TOTAL);
+			// params = getParamForUpdateExamResults(updatableResult);
 
-			Object[] param = getParamForUpdateFailExamResult();
+			// qr.batch(conn, Queries.UPDATE_EXAM_MARKS, params);
 
-			qr.update(conn, Queries.UPDATE_FAIL_EXAM_RESULT, param);
+			// qr.update(conn, Queries.UPDATE_EXAM_TOTAL);
 
-			qr.update(conn, Queries.UPDATE_PASS_EXAM_RESULT, "Pass", "Fail");
+			// Object[] param = getParamForUpdateFailExamResult();
+
+			// qr.update(conn, Queries.UPDATE_FAIL_EXAM_RESULT, param);
+
+			// qr.update(conn, Queries.UPDATE_PASS_EXAM_RESULT, "Pass", "Fail");
 
 			qr.update(conn, Queries.INSERT_EXAM_RESULTS);
 
@@ -199,55 +205,75 @@ public class ResultDao {
 	/**
 	 * @return
 	 */
-	private Object[] getParamForUpdateFailExamResult() {
-		Object[] param = new Object[19];
-		param[0] = "Fail";
-		for (int i = 1; i < param.length; i++) {
-			if (i < 11) {
-				param[i] = Constants.EX_MIN;
-			} else {
-				param[i] = Constants.IA_MIN;
-			}
-		}
-		return param;
-	}
+	// private Object[] getParamForUpdateFailExamResult() {
+	// Object[] param = new Object[19];
+	// param[0] = "Fail";
+	// for (int i = 1; i < param.length; i++) {
+	// if (i < 11) {
+	// param[i] = Constants.EX_MIN;
+	// } else {
+	// param[i] = Constants.IA_MIN;
+	// }
+	// }
+	// return param;
+	// }
 
 	/**
 	 * @param updatableResult
 	 * @return
 	 */
-	private Object[][] getParamForUpdateExamResults(List<Result> updatableResult) {
-		Object[][] params;
-		params = new Object[updatableResult.size()][20];
+	// private Object[][] getParamForUpdateExamResults(List<Result>
+	// updatableResult) {
+	// Object[][] params;
+	// params = new Object[updatableResult.size()][20];
+	//
+	// for (int i = 0; i < updatableResult.size(); i++) {
+	// Result result = updatableResult.get(i);
+	// int j = 0;
+	// String[] ex = result.getEx();
+	// params[i][j++] = StringUtils.trimToNull(ex[0]);
+	// params[i][j++] = StringUtils.trimToNull(ex[1]);
+	// params[i][j++] = StringUtils.trimToNull(ex[2]);
+	// params[i][j++] = StringUtils.trimToNull(ex[3]);
+	// params[i][j++] = StringUtils.trimToNull(ex[4]);
+	// params[i][j++] = StringUtils.trimToNull(ex[5]);
+	// params[i][j++] = StringUtils.trimToNull(ex[6]);
+	// params[i][j++] = StringUtils.trimToNull(ex[7]);
+	// params[i][j++] = StringUtils.trimToNull(ex[8]);
+	//
+	// String[] ia = result.getIn();
+	// params[i][j++] = StringUtils.trimToNull(ia[0]);
+	// params[i][j++] = StringUtils.trimToNull(ia[1]);
+	// params[i][j++] = StringUtils.trimToNull(ia[2]);
+	// params[i][j++] = StringUtils.trimToNull(ia[3]);
+	// params[i][j++] = StringUtils.trimToNull(ia[4]);
+	// params[i][j++] = StringUtils.trimToNull(ia[5]);
+	// params[i][j++] = StringUtils.trimToNull(ia[6]);
+	// params[i][j++] = StringUtils.trimToNull(ia[7]);
+	// params[i][j++] = StringUtils.trimToNull(ia[8]);
+	//
+	// params[i][j++] = result.getRegNo();
+	// params[i][j++] = result.getSem();
+	// }
+	// return params;
+	// UPDATE EXAM_RESULTS SET EX_TOTAL = ?, IA_TOTAL = ?, TOTAL = ?, RESULT = ?
+	// WHERE REG_NO = ? AND SEMESTER = ?
+	// }
 
-		for (int i = 0; i < updatableResult.size(); i++) {
-			Result result = updatableResult.get(i);
+	private Object[][] getParamForUpdateExamResults(List<Result> updatebleResult) {
+		Object[][] params = new Object[updatebleResult.size()][6];
+
+		for (int i = 0; i < params.length; i++) {
 			int j = 0;
-			String[] ex = result.getEx();
-			params[i][j++] = StringUtils.trimToNull(ex[0]);
-			params[i][j++] = StringUtils.trimToNull(ex[1]);
-			params[i][j++] = StringUtils.trimToNull(ex[2]);
-			params[i][j++] = StringUtils.trimToNull(ex[3]);
-			params[i][j++] = StringUtils.trimToNull(ex[4]);
-			params[i][j++] = StringUtils.trimToNull(ex[5]);
-			params[i][j++] = StringUtils.trimToNull(ex[6]);
-			params[i][j++] = StringUtils.trimToNull(ex[7]);
-			params[i][j++] = StringUtils.trimToNull(ex[8]);
-
-			String[] ia = result.getIn();
-			params[i][j++] = StringUtils.trimToNull(ia[0]);
-			params[i][j++] = StringUtils.trimToNull(ia[1]);
-			params[i][j++] = StringUtils.trimToNull(ia[2]);
-			params[i][j++] = StringUtils.trimToNull(ia[3]);
-			params[i][j++] = StringUtils.trimToNull(ia[4]);
-			params[i][j++] = StringUtils.trimToNull(ia[5]);
-			params[i][j++] = StringUtils.trimToNull(ia[6]);
-			params[i][j++] = StringUtils.trimToNull(ia[7]);
-			params[i][j++] = StringUtils.trimToNull(ia[8]);
-
+			Result result = updatebleResult.get(i);
+			params[i][j++] = result.getExTotal();
+			params[i][j++] = result.getInTotal();
+			params[i][j++] = result.getTotal();
+			params[i][j++] = result.getResult();
 			params[i][j++] = result.getRegNo();
 			params[i][j++] = result.getSem();
 		}
+
 		return params;
 	}
 
@@ -302,5 +328,67 @@ public class ResultDao {
 		}
 
 		return params;
+	}
+
+	private void calculateTotalResult(List<Result> resultList) {
+
+		boolean isResultSet = false;
+
+		for (Result result : resultList) {
+
+			isResultSet = false;
+
+			String[] ex = result.getEx();
+			String[] in = result.getIn();
+			String[] qp = result.getQp();
+
+			int total = 0;
+			int qpCount = 0;
+			int exTotal = 0;
+			int inTotal = 0;
+
+			for (int i = 0; i < ex.length; i++) {
+
+				int exMarks = NumberUtils.toInt(ex[i], 0);
+				int intMarks = NumberUtils.toInt(in[i], 0);
+				int totMarks = exMarks + intMarks;
+
+				exTotal += exMarks;
+				inTotal += intMarks;
+
+				if (StringUtils.isNotEmpty(qp[i])) {
+					qpCount++;
+					if (!isResultSet) {
+						if (StringUtils.endsWith(qp[i], "P")) {
+							if (exMarks < 50 || totMarks < 60) {
+								isResultSet = true;
+								result.setResult("Fail");
+							}
+						} else {
+							if (exMarks < 35 || totMarks < 45) {
+								isResultSet = true;
+								result.setResult("Fail");
+							}
+						}
+					}
+				}
+
+				total = total + totMarks;
+			}
+
+			result.setExTotal(exTotal);
+			result.setInTotal(inTotal);
+			result.setTotal(total);
+
+			if (!isResultSet && qpCount > 0) {
+				result.setResult("Pass");
+				double percentage = (total * 1.0) / qpCount;
+				if (percentage >= 75.0) {
+					result.setResult("Distinction");
+				} else if (percentage >= 60.0) {
+					result.setResult("First Class");
+				}
+			}
+		}
 	}
 }
