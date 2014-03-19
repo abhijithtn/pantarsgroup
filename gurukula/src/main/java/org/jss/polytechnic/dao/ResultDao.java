@@ -35,16 +35,53 @@ public class ResultDao {
 			QueryRunner qr = new QueryRunner();
 			qr.batch(conn, Queries.INSERT_STAGING_EXAM_RESULTS, params);
 
+			List<Result> updatableStagingResult = qr.query(conn,
+					Queries.GET_STAGING_RESULTS_TO_BE_UPDATED,
+					new BeanListHandler<Result>(Result.class,
+							new BasicRowProcessor(new ResultBeanProcessor())));
+
 			List<Result> updatableResult = qr.query(conn,
 					Queries.GET_RESULTS_TO_BE_UPDATED,
 					new BeanListHandler<Result>(Result.class,
 							new BasicRowProcessor(new ResultBeanProcessor())));
 
+			for (Result result : updatableResult) {
+				for (Result stagingResult : updatableStagingResult) {
+					if (stagingResult.getRegNo().equals(result.getRegNo())
+							&& stagingResult.getSem().equals(result.getSem())) {
+						String[] stagingex = stagingResult.getEx();
+						String[] ex = result.getEx();
+						for (int i = 0; i < stagingex.length; i++) {
+							if (NumberUtils.isNumber(StringUtils
+									.trimToEmpty(stagingex[i]))) {
+								ex[i] = stagingex[i];
+							} else if (StringUtils.isNotBlank(stagingex[i])) {
+								ex[i] = stagingex[i];
+							}
+						}
+
+						String[] stagingin = stagingResult.getIn();
+						String[] in = result.getIn();
+						for (int i = 0; i < stagingin.length; i++) {
+							if (NumberUtils.isNumber(StringUtils
+									.trimToEmpty(stagingin[i]))) {
+								in[i] = stagingin[i];
+							} else if (StringUtils.isNotBlank(stagingin[i])) {
+								in[i] = stagingin[i];
+							}
+						}
+
+					} else {
+						break;
+					}
+				}
+			}
+
 			calculateTotalResult(updatableResult);
 
 			params = getParamForUpdateExamResults(updatableResult);
 
-			qr.batch(conn, Queries.UPDATE_EXAM_RESULTS, params);
+			qr.batch(conn, Queries.UPDATE_EXAM_MARKS, params);
 
 			// params = getParamForUpdateExamResults(updatableResult);
 
@@ -261,11 +298,21 @@ public class ResultDao {
 	// }
 
 	private Object[][] getParamForUpdateExamResults(List<Result> updatebleResult) {
-		Object[][] params = new Object[updatebleResult.size()][6];
+		Object[][] params = new Object[updatebleResult.size()][24];
 
 		for (int i = 0; i < params.length; i++) {
 			int j = 0;
 			Result result = updatebleResult.get(i);
+			String[] ex = result.getEx();
+			for (int k = 0; k < ex.length; k++) {
+				params[i][j++] = ex[k];
+			}
+
+			String[] in = result.getIn();
+			for (int k = 0; k < in.length; k++) {
+				params[i][j++] = in[k];
+			}
+
 			params[i][j++] = result.getExTotal();
 			params[i][j++] = result.getInTotal();
 			params[i][j++] = result.getTotal();
