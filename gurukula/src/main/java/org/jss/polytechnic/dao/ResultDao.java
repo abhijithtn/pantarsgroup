@@ -416,8 +416,7 @@ public class ResultDao {
 				if (StringUtils.isNotEmpty(qp[i])) {
 					qpCount++;
 					if (!isResultSet) {
-						if (StringUtils.endsWith(qp[i], "P")
-								|| qp[i].matches(Constants.DRAWING_REGEX)) {
+						if (StringUtils.endsWith(qp[i], "P")) {
 							if (exMarks < 50 || totMarks < 60) {
 								isResultSet = true;
 								result.setResult("Fail");
