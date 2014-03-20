@@ -416,13 +416,13 @@ public class ResultDao {
 				if (StringUtils.isNotEmpty(qp[i])) {
 					qpCount++;
 					if (!isResultSet) {
-						if (StringUtils.endsWith(qp[i], "P")) {
-							if (exMarks < 50 || totMarks < 60) {
+						if (Constants.CASP_SUB_CODE_LST.contains(qp[i])) {
+							if (exMarks < 25 || totMarks < 60) {
 								isResultSet = true;
 								result.setResult("Fail");
 							}
-						} else if (Constants.CASP_SUB_CODE_LST.contains(qp[i])) {
-							if (exMarks < 25 || totMarks < 60) {
+						} else if (StringUtils.endsWith(qp[i], "P")) {
+							if (exMarks < 50 || totMarks < 60) {
 								isResultSet = true;
 								result.setResult("Fail");
 							}
