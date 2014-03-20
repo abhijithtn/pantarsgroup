@@ -421,6 +421,11 @@ public class ResultDao {
 								isResultSet = true;
 								result.setResult("Fail");
 							}
+						} else if (Constants.CASP_SUB_CODE_LST.contains(qp[i])) {
+							if (exMarks < 25 || totMarks < 60) {
+								isResultSet = true;
+								result.setResult("Fail");
+							}
 						} else {
 							if (exMarks < 35 || totMarks < 45) {
 								isResultSet = true;
