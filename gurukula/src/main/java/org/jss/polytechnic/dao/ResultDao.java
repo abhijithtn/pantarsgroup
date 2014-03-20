@@ -71,7 +71,6 @@ public class ResultDao {
 							}
 						}
 
-					} else {
 						break;
 					}
 				}
