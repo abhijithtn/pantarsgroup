@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.jss.polytechnic.bean.BoardResult;
 import org.jss.polytechnic.bean.Result;
+import org.jss.polytechnic.web.Constants;
 
 public class ResultDao {
 
@@ -415,7 +416,8 @@ public class ResultDao {
 				if (StringUtils.isNotEmpty(qp[i])) {
 					qpCount++;
 					if (!isResultSet) {
-						if (StringUtils.endsWith(qp[i], "P")) {
+						if (StringUtils.endsWith(qp[i], "P")
+								|| qp[i].matches(Constants.DRAWING_REGEX)) {
 							if (exMarks < 50 || totMarks < 60) {
 								isResultSet = true;
 								result.setResult("Fail");

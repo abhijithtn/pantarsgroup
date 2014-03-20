@@ -15,7 +15,7 @@
 					<p:fileUpload
 						fileUploadListener="#{resultExcelUploadController.handleFileUpload}"
 						mode="advanced" dragDropSupport="false" update="messages"
-						sizeLimit="1000000" fileLimit="0" allowTypes="/(\.|\/)(xls?x)$/" />
+						sizeLimit="1000000" fileLimit="0" allowTypes="/(\.|\/)(xls|xlsx)$/" />
 					<p:growl id="messages" showDetail="true" />
 				</h:panelGrid>
 			</p:panel>
