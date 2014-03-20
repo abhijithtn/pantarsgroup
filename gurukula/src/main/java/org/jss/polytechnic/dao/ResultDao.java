@@ -397,8 +397,12 @@ public class ResultDao {
 
 			for (int i = 0; i < ex.length; i++) {
 
-				if (!StringUtils.equalsIgnoreCase(ex[i], "ZZ")) {
+				if (!isAllZZ || !StringUtils.equalsIgnoreCase(ex[i], "ZZ")) {
 					isAllZZ = false;
+				}
+
+				if (!NumberUtils.isDigits(StringUtils.trimToEmpty(ex[i]))) {
+					continue;
 				}
 
 				int exMarks = NumberUtils.toInt(ex[i], 0);
