@@ -408,12 +408,16 @@ public class ResultDao {
 					isAllZZ = false;
 				}
 
+				int intMarks = NumberUtils.toInt(in[i], 0);
+
+				total += intMarks;
+
 				if (!NumberUtils.isDigits(StringUtils.trimToEmpty(ex[i]))) {
 					continue;
 				}
 
 				int exMarks = NumberUtils.toInt(ex[i], 0);
-				int intMarks = NumberUtils.toInt(in[i], 0);
+
 				int totMarks = exMarks + intMarks;
 
 				exTotal += exMarks;
@@ -441,7 +445,7 @@ public class ResultDao {
 					}
 				}
 
-				total = total + totMarks;
+				total += exMarks;
 			}
 
 			result.setExTotal(exTotal);
