@@ -384,6 +384,8 @@ public class ResultDao {
 
 		for (Result result : resultList) {
 
+			double correctionRate = 1.0;
+
 			isResultSet = false;
 			isAllZZ = true;
 
@@ -395,6 +397,10 @@ public class ResultDao {
 			int qpCount = 0;
 			int exTotal = 0;
 			int inTotal = 0;
+
+			if (StringUtils.equals(result.getSem(), "5")) {
+				correctionRate = 0.25;
+			}
 
 			for (int i = 0; i < ex.length; i++) {
 
@@ -449,7 +455,8 @@ public class ResultDao {
 
 			if (!isResultSet && qpCount > 0) {
 				result.setResult("Pass");
-				double percentage = (total * 1.0) / qpCount;
+				double percentage = (total * 1.0)
+						/ (qpCount * 1.25 + correctionRate);
 				if (percentage >= 75.0) {
 					result.setResult("Distinction");
 				} else if (percentage >= 60.0) {
